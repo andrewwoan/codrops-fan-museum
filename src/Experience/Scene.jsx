@@ -100,7 +100,7 @@ const Scene = ({
           "/cubemap/nz.webp",
         ]}
       />
-      {/* <fogExp2 attach="fog" color="#403e3e" density={0.01} /> */}
+      <fogExp2 attach="fog" color="#403e3e" density={0.01} />
       <DebugCurve curve={cameraCurve} />
 
       <Suspense fallback={null}>

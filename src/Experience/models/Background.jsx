@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.5.3 Background.glb
 */
 
 import React from "react";
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, Instances, Instance } from "@react-three/drei";
 import { convertMaterialsToBasic } from "../utils/convertToBasic";
 
 export default function Model(props) {
@@ -12,15 +12,26 @@ export default function Model(props) {
 
   const newMaterials = convertMaterialsToBasic(materials);
   return (
-    <group {...props} dispose={null}>
-      <mesh
-        geometry={nodes.background.geometry}
-        material={newMaterials.background}
-        position={[-273.311, 66.468, -184.652]}
+    <Instances
+      limit={3}
+      geometry={nodes.background.geometry}
+      material={newMaterials.background}
+      {...props}
+    >
+      {/* First instance */}
+      <Instance
+        position={[-170.311, 66.468, -124.652]}
         rotation={[Math.PI / 2, 0, -0.765]}
-        scale={278.189}
+        scale={205.189}
       />
-    </group>
+
+      {/* Second instance */}
+      <Instance
+        position={[170.311, 30.468, -124.652]}
+        rotation={[Math.PI / 2, 0, 0.5]}
+        scale={150}
+      />
+    </Instances>
   );
 }
 
