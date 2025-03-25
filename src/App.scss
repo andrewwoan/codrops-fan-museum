@@ -1,0 +1,22 @@
+#root,
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  touch-action: none;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+button {
+  font-family: inherit;
+}

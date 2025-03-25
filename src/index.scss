@@ -1,0 +1,17 @@
+@use "./styles/fonts.scss";
+@use "./styles/reset.scss";
+@use "./styles/variables.scss";
+
+@forward "./styles/fonts.scss";
+@forward "./styles/reset.scss";
+@forward "./styles/variables.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
