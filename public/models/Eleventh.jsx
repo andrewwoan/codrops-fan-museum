@@ -5,20 +5,19 @@ Command: npx gltfjsx@6.5.3 Eleventh.glb
 
 import React from "react";
 import { useGLTF } from "@react-three/drei";
-import { useGLTFWithKTX2 } from "../utils/useGLTFWithKTX2";
-import { convertMaterialsToBasic } from "../utils/convertToBasic";
 
-export default function Model(props) {
-  const { nodes, materials } = useGLTFWithKTX2("/models/Eleventh.glb");
-  const newMaterials = convertMaterialsToBasic(materials);
+export function Model(props) {
+  const { nodes, materials } = useGLTF("/Eleventh.glb");
   return (
     <group {...props} dispose={null}>
       <mesh
         geometry={nodes.Eleven_Front_Entrance_Baked.geometry}
-        material={newMaterials.Eleventh_Final_Actual_Baked}
+        material={materials.Eleventh_Final_Actual_Baked}
         position={[4.568, 6.749, -38.719]}
         rotation={[0, Math.PI / 2, 0]}
       />
     </group>
   );
 }
+
+useGLTF.preload("/Eleventh.glb");

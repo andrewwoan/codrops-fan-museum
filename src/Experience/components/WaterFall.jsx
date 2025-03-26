@@ -8,7 +8,7 @@ export default function WaterfallModel({
   repeatY = 1,
   edgeFade = 0.1,
   tintColor = [0.651, 0.604, 0.702],
-  tintIntensity = 0.5,
+  tintIntensity = 1,
   ...props
 }) {
   const { nodes } = useGLTF("/models/Waterfall.glb");
@@ -16,7 +16,6 @@ export default function WaterfallModel({
   const shaderRef = useRef();
   const meshRef = useRef();
 
-  // Calculate the width of the waterfall for proper edge fading
   const bounds = useMemo(() => {
     if (!nodes.Waterfall.geometry.boundingBox) {
       nodes.Waterfall.geometry.computeBoundingBox();
