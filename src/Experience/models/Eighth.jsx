@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.5.3 Eighth.glb
 */
 
 import React from "react";
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, Instance, Instances } from "@react-three/drei";
 import { useGLTFWithKTX2 } from "../utils/useGLTFWithKTX2";
 import { convertMaterialsToBasic } from "../utils/convertToBasic";
 
@@ -20,12 +20,60 @@ export default function Model(props) {
         position={[-5.2, 9.818, -23.394]}
         rotation={[0, -0.091, 0]}
       />
-      <mesh
+      <Instances
+        limit={8}
         geometry={nodes.Eighth_Tree_Baked.geometry}
         material={newMaterials.Eighth_Baked}
-        position={[29.885, -1.852, -2.243]}
-        rotation={[0.093, 0.914, -0.048]}
-      />
+      >
+        {/* Original position */}
+        <Instance
+          position={[29.885, -1.852, -2.243]}
+          rotation={[0.093, 0.914, -0.048]}
+          scale={0.9}
+        />
+
+        <Instance
+          position={[21.885, -1.852, 0.243]}
+          rotation={[0.093, 0.3, -0.048]}
+          scale={1}
+        />
+
+        <Instance
+          position={[-10, -1.852, -2.243]}
+          rotation={[0.093, 0.5, -0.048]}
+          scale={1}
+        />
+
+        <Instance
+          position={[-20, 3.852, -2.243]}
+          rotation={[0.093, 1.2, -0.048]}
+          scale={0.9}
+        />
+
+        <Instance
+          position={[-21, 4.852, -15.243]}
+          rotation={[0.093, 0.3, -0.048]}
+          scale={1.4}
+        />
+
+        <Instance
+          position={[-19, 4.252, -25.243]}
+          rotation={[0.093, 0.45, -0.048]}
+          scale={1.4}
+        />
+
+        <Instance
+          position={[39.885, 2.252, -23.243]}
+          rotation={[0.093, 1.5, -0.048]}
+          scale={1.2}
+        />
+
+        <Instance
+          position={[39.885, 2.252, -45.243]}
+          rotation={[0.093, 1.5, -0.048]}
+          scale={2}
+        />
+      </Instances>
     </group>
   );
 }
