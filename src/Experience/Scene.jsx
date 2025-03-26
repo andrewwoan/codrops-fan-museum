@@ -17,7 +17,12 @@ import Tenth from "./models/Tenth";
 import Eleventh from "./models/Eleventh";
 import Background from "./models/Background";
 
-import { cameraCurve, DebugCurve, CameraHelper } from "./utils/curve";
+import {
+  cameraCurve,
+  DebugCurve,
+  CameraHelper,
+  rotationTargets,
+} from "./utils/curve";
 import Fire from "./components/Fire";
 
 const Scene = ({
@@ -30,6 +35,39 @@ const Scene = ({
   mouseOffset,
 }) => {
   const [pulseIntensity, setPulseIntensity] = useState(0);
+  const [rotationBuffer, setRotationBuffer] = useState(
+    new THREE.Euler().copy(rotationTargets[0].rotation)
+  );
+
+  const getLerpedRotation = (progress) => {
+    for (let i = 0; i < rotationTargets.length - 1; i++) {
+      const start = rotationTargets[i];
+      const end = rotationTargets[i + 1];
+      if (progress >= start.progress && progress <= end.progress) {
+        const lerpFactor =
+          (progress - start.progress) / (end.progress - start.progress);
+
+        const startQuaternion = new THREE.Quaternion().setFromEuler(
+          start.rotation
+        );
+        const endQuaternion = new THREE.Quaternion().setFromEuler(end.rotation);
+
+        const lerpingQuaternion = new THREE.Quaternion();
+        lerpingQuaternion.slerpQuaternions(
+          startQuaternion,
+          endQuaternion,
+          lerpFactor
+        );
+
+        const lerpedRotation = new THREE.Euler().setFromQuaternion(
+          lerpingQuaternion
+        );
+        return lerpedRotation;
+      }
+    }
+
+    return rotationTargets[rotationTargets.length - 1].rotation;
+  };
 
   useFrame((state) => {
     if (camera) {
@@ -52,54 +90,50 @@ const Scene = ({
 
       setscrollProgress(newProgress);
 
+      console.log(camera.current.rotation);
+      console.log(newProgress);
+
       const basePoint = cameraCurve.getPoint(newProgress);
 
-      // cameraGroup.current.position.x = THREE.MathUtils.lerp(
-      //   cameraGroup.current.position.x,
-      //   basePoint.x,
-      //   0.1
-      // );
-      // cameraGroup.current.position.y = THREE.MathUtils.lerp(
-      //   cameraGroup.current.position.y,
-      //   basePoint.y,
-      //   0.1
-      // );
-      // cameraGroup.current.position.z = THREE.MathUtils.lerp(
-      //   cameraGroup.current.position.z,
-      //   basePoint.z,
-      //   0.1
-      // );
+      cameraGroup.current.position.x = THREE.MathUtils.lerp(
+        cameraGroup.current.position.x,
+        basePoint.x,
+        0.1
+      );
+      cameraGroup.current.position.y = THREE.MathUtils.lerp(
+        cameraGroup.current.position.y,
+        basePoint.y,
+        0.1
+      );
+      cameraGroup.current.position.z = THREE.MathUtils.lerp(
+        cameraGroup.current.position.z,
+        basePoint.z,
+        0.1
+      );
 
-      // camera.current.position.x = THREE.MathUtils.lerp(
-      //   camera.current.position.x,
-      //   basePoint.x,
-      //   0.1
-      // );
-      // camera.current.position.y = THREE.MathUtils.lerp(
-      //   camera.current.position.y,
-      //   basePoint.y,
-      //   0.1
-      // );
-      // camera.current.position.z = THREE.MathUtils.lerp(
-      //   camera.current.position.z,
-      //   basePoint.z,
-      //   0.1
-      // );
+      camera.current.position.x = THREE.MathUtils.lerp(
+        camera.current.position.x,
+        mouseOffset.current.x,
+        0.1
+      );
+      camera.current.position.y = THREE.MathUtils.lerp(
+        camera.current.position.y,
+        -mouseOffset.current.y,
+        0.1
+      );
+      camera.current.position.z = 0;
 
-      // camera.current.position.x = THREE.MathUtils.lerp(
-      //   camera.current.position.x,
-      //   mouseOffset.current.x,
-      //   0.1
-      // );
-      // camera.current.position.y = THREE.MathUtils.lerp(
-      //   camera.current.position.y,
-      //   -mouseOffset.current.y,
-      //   0.1
-      // );
-      // camera.current.position.z = 0;
+      const targetRotation = getLerpedRotation(newProgress);
 
-      // const targetRotation = getLerpedRotation(newProgress);
-      // cameraGroup.current.rotation.copy(targetRotation);
+      const smoothedRotation = new THREE.Euler(
+        THREE.MathUtils.lerp(rotationBuffer.x, targetRotation.x, 0.05),
+        THREE.MathUtils.lerp(rotationBuffer.y, targetRotation.y, 0.05),
+        THREE.MathUtils.lerp(rotationBuffer.z, targetRotation.z, 0.05)
+      );
+
+      setRotationBuffer(smoothedRotation);
+
+      cameraGroup.current.rotation.copy(smoothedRotation);
     }
   });
 

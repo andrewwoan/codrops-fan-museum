@@ -7,17 +7,15 @@ export const cameraCurve = new THREE.CatmullRomCurve3(
       10.856284964410769,
       20.640379680866076
     ),
-    new THREE.Vector3(6.080023517587114, 9.66248066285629, -9.514943289676541),
-    new THREE.Vector3(6.13562719183884, 8.94385544864918, -35.15952064804525),
+    new THREE.Vector3(6.15, 9.66248066285629, -9.514943289676541),
+    new THREE.Vector3(6.15, 9.66248066285629, -25.514943289676541),
+    new THREE.Vector3(6.15, 8.58385544864918, -35.15952064804525),
+    new THREE.Vector3(6.15, 8.58385544864918, -36.15952064804525),
+    new THREE.Vector3(-0, 9.095692752216793, -43.04820648294106),
     new THREE.Vector3(
-      0.4436610752679034,
-      9.095692752216793,
-      -45.24820648294106
-    ),
-    new THREE.Vector3(
-      10.832496218694319,
+      12.9432496218694319,
       9.072285787822777,
-      -44.99183302104726
+      -43.09183302104726
     ),
     new THREE.Vector3(5.458086050034908, 8.73452167183442, -38.5039287861451),
     new THREE.Vector3(
@@ -55,54 +53,139 @@ export const CameraHelper = ({ cameraRef }) => {
 export const rotationTargets = [
   {
     progress: 0,
-    rotation: new THREE.Euler(-0.12, 0.17, 0.02),
+    rotation: new THREE.Euler(
+      -0.12400024540242917,
+      0.00479125845971665,
+      0.000597178775549178
+    ),
   },
   {
-    progress: 0.14,
-    rotation: new THREE.Euler(-0.11, 0.003, 0.0),
+    progress: 0.07,
+    rotation: new THREE.Euler(
+      -0.04277011042878412,
+      -0.00866103427209704,
+      -0.00037065478236413864
+    ),
   },
   {
     progress: 0.2,
-    rotation: new THREE.Euler(-0.11, 0.003, 0.0),
+    rotation: new THREE.Euler(
+      -0.04277011042878412,
+      -0.00866103427209704,
+      -0.00037065478236413864
+    ),
   },
   {
-    progress: 0.24,
-    rotation: new THREE.Euler(0.173, 1.042, -0.15),
+    progress: 0.28,
+    rotation: new THREE.Euler(
+      -0.7651668165265633,
+      0.003786054557443451,
+      0.003635853660383532
+    ),
   },
   {
-    progress: 0.365,
-    rotation: new THREE.Euler(0.023, 0.024, -0.001),
+    progress: 0.39,
+    rotation: new THREE.Euler(
+      -0.046339131170143176,
+      0.5298491298300412,
+      0.02343243154257062
+    ),
   },
   {
-    progress: 0.42,
-    rotation: new THREE.Euler(0.177, 0.972, -0.147),
+    progress: 0.45,
+    rotation: new THREE.Euler(
+      -0.026015217004565497,
+      0.019361968160347905,
+      0.0005037879475436998
+    ),
   },
   {
-    progress: 0.5,
-    rotation: new THREE.Euler(-2.725, 1.02, 2.782),
+    progress: 0.53,
+    rotation: new THREE.Euler(
+      -0.03715278867725955,
+      0.03581271756827499,
+      0.0013308695485603585
+    ),
   },
   {
-    progress: 0.56,
-    rotation: new THREE.Euler(-2.9, -0.069, -3.125),
+    progress: 0.61,
+    rotation: new THREE.Euler(
+      -0.038854519527552256,
+      -0.44056419965908544,
+      -0.01657632912947032
+    ),
   },
   {
-    progress: 0.62,
-    rotation: new THREE.Euler(-2.76, 0.21, 3.06),
+    progress: 0.69,
+    rotation: new THREE.Euler(
+      -0.13535558580154114,
+      0.04311086541781096,
+      0.005869310093750261
+    ),
   },
   {
-    progress: 0.715,
-    rotation: new THREE.Euler(-0.467, -0.681, -0.308),
-  },
-  {
-    progress: 0.735,
-    rotation: new THREE.Euler(-0.043, 0.012, 0.0005),
-  },
-  {
-    progress: 0.85,
-    rotation: new THREE.Euler(-0.043, 0.012, 0.0005),
+    progress: 0.8,
+    rotation: new THREE.Euler(
+      -0.4492353012229583,
+      0.043017130864367585,
+      0.02072972153013933
+    ),
   },
   {
     progress: 1,
-    rotation: new THREE.Euler(-0.12, 0.17, 0.02),
+    rotation: new THREE.Euler(
+      -0.12400024540242917,
+      0.00479125845971665,
+      0.000597178775549178
+    ),
   },
 ];
+
+export const createRotationSpline = (targets) => {
+  const quaternions = targets.map((target) =>
+    new THREE.Quaternion().setFromEuler(target.rotation)
+  );
+
+  const progressPoints = targets.map((target) => target.progress);
+
+  return (progress) => {
+    let segment = 0;
+    while (
+      segment < progressPoints.length - 1 &&
+      progress > progressPoints[segment + 1]
+    ) {
+      segment++;
+    }
+
+    if (segment === progressPoints.length - 1) {
+      return targets[segment].rotation.clone();
+    }
+
+    const start = progressPoints[segment];
+    const end = progressPoints[segment + 1];
+    const t = (progress - start) / (end - start);
+
+    const smoothT = t * t * (3 - 2 * t);
+
+    const q1 = quaternions[segment];
+    const q2 = quaternions[segment + 1];
+
+    const resultQuaternion = new THREE.Quaternion();
+
+    if (segment > 0 && segment < progressPoints.length - 2) {
+      const q0 = quaternions[segment - 1];
+      const q3 = quaternions[segment + 2];
+
+      const tempQ1 = new THREE.Quaternion();
+      const tempQ2 = new THREE.Quaternion();
+
+      tempQ1.copy(q1).slerp(q2, smoothT);
+      tempQ2.copy(q0).slerp(q3, smoothT);
+      resultQuaternion.copy(tempQ1).slerp(tempQ2, smoothT * (1 - smoothT));
+    } else {
+      resultQuaternion.copy(q1).slerp(q2, smoothT);
+    }
+
+    return new THREE.Euler().setFromQuaternion(resultQuaternion);
+  };
+};

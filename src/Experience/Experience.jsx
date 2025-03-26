@@ -86,13 +86,13 @@ const Experience = () => {
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
-    // window.addEventListener("mousemove", handleMouseMove);
-    // window.addEventListener("mousedown", handleMouseDown);
-    // window.addEventListener("mousemove", handleMouseDrag);
-    // window.addEventListener("mouseup", handleMouseUp);
-    // window.addEventListener("touchstart", handleTouchStart, { passive: false });
-    // window.addEventListener("touchmove", handleTouchMove, { passive: false });
-    // window.addEventListener("touchend", handleTouchEnd);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mousemove", handleMouseDrag);
+    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd);
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
@@ -117,7 +117,7 @@ const Experience = () => {
             position={[0, 10, 0]}
           />
         </group>
-        <OrbitControls camera={camera.current} />
+        {/* <OrbitControls camera={camera.current} enableZoom={false} /> */}
         <Scene
           cameraGroup={cameraGroup}
           camera={camera}
