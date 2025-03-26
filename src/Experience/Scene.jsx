@@ -1,4 +1,4 @@
-import { React, Suspense, useState } from "react";
+import { React, Suspense, useState, useRef } from "react";
 
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
@@ -40,6 +40,7 @@ const Scene = ({
   const [rotationBuffer, setRotationBuffer] = useState(
     new THREE.Euler().copy(rotationTargets[0].rotation)
   );
+  const timeRef = useRef(0);
 
   const getLerpedRotation = (progress) => {
     for (let i = 0; i < rotationTargets.length - 1; i++) {
@@ -73,6 +74,7 @@ const Scene = ({
 
   useFrame((state) => {
     if (camera) {
+      timeRef.current = state.clock.getElapsedTime();
       const newPulseIntensity = (Math.sin(state.clock.elapsedTime * 3) + 1) / 2;
       setPulseIntensity(newPulseIntensity);
 
@@ -177,13 +179,13 @@ const Scene = ({
         <Fifth />
         <Sixth />
         <Seventh />
-        <Eighth />
+        <Eighth time={timeRef.current} />
         <Ninth progress={scrollProgress} pulseIntensity={pulseIntensity} />
         <Tenth />
         <Eleventh />
         <Background />
-        <Fire />
-        <WaterFall />
+        <Fire time={timeRef.current} />
+        <WaterFall time={timeRef.current} />
       </Suspense>
     </>
   );

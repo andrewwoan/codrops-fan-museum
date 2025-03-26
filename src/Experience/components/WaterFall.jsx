@@ -4,6 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { useGLTF, useTexture } from "@react-three/drei";
 
 export default function WaterfallModel({
+  time,
   speed = 0.1,
   repeatY = 1,
   edgeFade = 0.1,
@@ -47,15 +48,15 @@ export default function WaterfallModel({
     }
   }, [texture, repeatY]);
 
-  useFrame((state) => {
+  useEffect(() => {
     if (shaderRef.current) {
-      shaderRef.current.uniforms.time.value = state.clock.getElapsedTime();
+      shaderRef.current.uniforms.time.value = time;
     }
-  });
+  }, [time]);
 
   const waterfallMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      time: { value: 0 },
+      time: { value: time },
       map: { value: texture },
       textureAspect: { value: 0.7 },
       repeatY: { value: repeatY },

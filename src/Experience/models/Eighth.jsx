@@ -5,7 +5,7 @@ import { convertMaterialsToBasic } from "../utils/convertToBasic";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-const TreeSwayMaterial = forwardRef((props, ref) => {
+const TreeSwayMaterial = forwardRef(({ time, ...props }, ref) => {
   const uniforms = useRef({
     time: { value: 0 },
     swayAmount: { value: 0.3 },
@@ -14,9 +14,11 @@ const TreeSwayMaterial = forwardRef((props, ref) => {
     map: { value: props.map },
   });
 
-  useFrame((state) => {
-    uniforms.current.time.value = state.clock.getElapsedTime();
-  });
+  useEffect(() => {
+    if (uniforms.current) {
+      uniforms.current.time.value = time;
+    }
+  }, [time]);
 
   const vertexShader = `
     uniform float time;
@@ -110,6 +112,7 @@ export default function Model(props) {
       <Instances limit={10} geometry={nodes.Eighth_Tree_Baked.geometry}>
         <TreeSwayMaterial
           ref={materialRef}
+          time={props.time}
           map={newMaterials.Eighth_Baked.map}
           transparent={newMaterials.Eighth_Baked.transparent}
           alphaTest={newMaterials.Eighth_Baked.alphaTest}

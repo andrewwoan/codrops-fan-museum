@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useEffect } from "react";
 import { extend, useFrame, useLoader } from "@react-three/fiber";
 
 class FireMaterial extends THREE.ShaderMaterial {
@@ -158,7 +158,7 @@ class FireMaterial extends THREE.ShaderMaterial {
 
 extend({ FireMaterial });
 
-function FireElement({ color, ...props }) {
+function FireElement({ color, time, ...props }) {
   const meshRef = useRef();
   const materialRef = useRef();
   const texture = useLoader(THREE.TextureLoader, "/images/fire.png");
@@ -176,16 +176,16 @@ function FireElement({ color, ...props }) {
     materialRef.current.uniforms.seed.value = Math.random() * 19.19;
   }, [texture, color]);
 
-  useFrame((state) => {
+  useEffect(() => {
     if (!meshRef.current || !materialRef.current) return;
 
     const invModelMatrix = materialRef.current.uniforms.invModelMatrix.value;
     meshRef.current.updateMatrixWorld();
     invModelMatrix.copy(meshRef.current.matrixWorld).invert();
-    materialRef.current.uniforms.time.value = state.clock.elapsedTime;
+    materialRef.current.uniforms.time.value = time;
     materialRef.current.uniforms.invModelMatrix.value = invModelMatrix;
     materialRef.current.uniforms.scale.value = meshRef.current.scale;
-  });
+  }, [time]);
 
   return (
     <mesh ref={meshRef} {...props} renderOrder={1}>
@@ -195,38 +195,77 @@ function FireElement({ color, ...props }) {
   );
 }
 
-export default function Fire(props) {
+export default function Fire({ time, ...props }) {
   return (
     <group {...props}>
       {/* Main Fires */}
-      <FireElement scale={[1.4, 4, 1.4]} position={[-12.979, 9.52, -14.4]} />
-      <FireElement scale={[1.4, 4, 1.4]} position={[-9.29, 9.52, -14.4]} />
-      <FireElement scale={[1.4, 4, 1.4]} position={[21.279, 9.52, -14.4]} />
-      <FireElement scale={[1.4, 4, 1.4]} position={[24.93, 9.52, -14.4]} />
-      <FireElement scale={[1.4, 4, 1.4]} position={[28.789, 9.52, -14.4]} />
+      <FireElement
+        time={time}
+        scale={[1.4, 4, 1.4]}
+        position={[-12.979, 9.52, -14.4]}
+      />
+      <FireElement
+        time={time}
+        scale={[1.4, 4, 1.4]}
+        position={[-9.29, 9.52, -14.4]}
+      />
+      <FireElement
+        time={time}
+        scale={[1.4, 4, 1.4]}
+        position={[21.279, 9.52, -14.4]}
+      />
+      <FireElement
+        time={time}
+        scale={[1.4, 4, 1.4]}
+        position={[24.93, 9.52, -14.4]}
+      />
+      <FireElement
+        time={time}
+        scale={[1.4, 4, 1.4]}
+        position={[28.789, 9.52, -14.4]}
+      />
 
       {/* Outside Torches */}
       <FireElement
+        time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[9.1, 10.32, -18.4]}
       />
       <FireElement
+        time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[3.28, 10.32, -18.4]}
       />
       <FireElement
+        time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[5.724, 17.3, -15.6]}
       />
 
       {/* Inside Torches */}
-      <FireElement scale={[0.38, 2, 0.38]} position={[11.27, 8.62, -27.25]} />
-      <FireElement scale={[0.38, 2, 0.38]} position={[1.4, 8.62, -27.15]} />
-      <FireElement scale={[0.38, 2, 0.38]} position={[11.27, 8.62, -45.25]} />
-      <FireElement scale={[0.38, 2, 0.38]} position={[1.4, 8.62, -45.15]} />
+      <FireElement
+        time={time}
+        scale={[0.38, 2, 0.38]}
+        position={[11.27, 8.62, -27.25]}
+      />
+      <FireElement
+        time={time}
+        scale={[0.38, 2, 0.38]}
+        position={[1.4, 8.62, -27.15]}
+      />
+      <FireElement
+        time={time}
+        scale={[0.38, 2, 0.38]}
+        position={[11.27, 8.62, -45.25]}
+      />
+      <FireElement
+        time={time}
+        scale={[0.38, 2, 0.38]}
+        position={[1.4, 8.62, -45.15]}
+      />
     </group>
   );
 }
