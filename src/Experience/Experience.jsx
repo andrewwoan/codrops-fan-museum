@@ -4,7 +4,11 @@ import Scene from "./Scene";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 
-import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
+import {
+  PerspectiveCamera,
+  CameraControls,
+  OrbitControls,
+} from "@react-three/drei";
 import { useModalStore } from "../stores/useModalStore";
 import normalizeWheel from "normalize-wheel";
 
@@ -82,13 +86,13 @@ const Experience = () => {
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mousemove", handleMouseDrag);
-    window.addEventListener("mouseup", handleMouseUp);
-    window.addEventListener("touchstart", handleTouchStart, { passive: false });
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
-    window.addEventListener("touchend", handleTouchEnd);
+    // window.addEventListener("mousemove", handleMouseMove);
+    // window.addEventListener("mousedown", handleMouseDown);
+    // window.addEventListener("mousemove", handleMouseDrag);
+    // window.addEventListener("mouseup", handleMouseUp);
+    // window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    // window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    // window.addEventListener("touchend", handleTouchEnd);
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
@@ -113,7 +117,7 @@ const Experience = () => {
             position={[0, 10, 0]}
           />
         </group>
-        {/* <OrbitControls /> */}
+        <OrbitControls camera={camera.current} />
         <Scene
           cameraGroup={cameraGroup}
           camera={camera}

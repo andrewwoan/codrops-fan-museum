@@ -53,33 +53,49 @@ const Scene = ({
 
       const basePoint = cameraCurve.getPoint(newProgress);
 
-      cameraGroup.current.position.x = THREE.MathUtils.lerp(
-        cameraGroup.current.position.x,
-        basePoint.x,
-        0.1
-      );
-      cameraGroup.current.position.y = THREE.MathUtils.lerp(
-        cameraGroup.current.position.y,
-        basePoint.y,
-        0.1
-      );
-      cameraGroup.current.position.z = THREE.MathUtils.lerp(
-        cameraGroup.current.position.z,
-        basePoint.z,
-        0.1
-      );
+      // cameraGroup.current.position.x = THREE.MathUtils.lerp(
+      //   cameraGroup.current.position.x,
+      //   basePoint.x,
+      //   0.1
+      // );
+      // cameraGroup.current.position.y = THREE.MathUtils.lerp(
+      //   cameraGroup.current.position.y,
+      //   basePoint.y,
+      //   0.1
+      // );
+      // cameraGroup.current.position.z = THREE.MathUtils.lerp(
+      //   cameraGroup.current.position.z,
+      //   basePoint.z,
+      //   0.1
+      // );
 
       camera.current.position.x = THREE.MathUtils.lerp(
         camera.current.position.x,
-        mouseOffset.current.x,
+        basePoint.x,
         0.1
       );
       camera.current.position.y = THREE.MathUtils.lerp(
         camera.current.position.y,
-        -mouseOffset.current.y,
+        basePoint.y,
         0.1
       );
-      camera.current.position.z = 0;
+      camera.current.position.z = THREE.MathUtils.lerp(
+        camera.current.position.z,
+        basePoint.z,
+        0.1
+      );
+
+      // camera.current.position.x = THREE.MathUtils.lerp(
+      //   camera.current.position.x,
+      //   mouseOffset.current.x,
+      //   0.1
+      // );
+      // camera.current.position.y = THREE.MathUtils.lerp(
+      //   camera.current.position.y,
+      //   -mouseOffset.current.y,
+      //   0.1
+      // );
+      // camera.current.position.z = 0;
 
       // const targetRotation = getLerpedRotation(newProgress);
       // cameraGroup.current.rotation.copy(targetRotation);
