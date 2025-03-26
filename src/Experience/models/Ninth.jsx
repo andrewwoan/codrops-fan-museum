@@ -33,41 +33,55 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
     return baseMaterial;
   };
 
+  useEffect(() => {
+    document.body.style.cursor = hoveredMesh ? "pointer" : "auto";
+  }, [hoveredMesh]);
+
   return (
     <group {...props} dispose={null}>
       <mesh
         geometry={nodes.Ninth_Codrops_Baked.geometry}
-        material={getMaterial("three", [0.399, 0.6])}
+        material={getMaterial("codrops", [0.399, 0.6])}
+        onPointerOver={() => setHoveredMesh("codrops")}
+        onPointerOut={() => setHoveredMesh(null)}
         position={[6.136, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
       <mesh
         geometry={nodes.Ninth_CSSTricks_Baked.geometry}
-        material={getMaterial("three", [0.399, 0.6])}
+        material={getMaterial("csstricks", [0.399, 0.6])}
+        onPointerOver={() => setHoveredMesh("csstricks")}
+        onPointerOut={() => setHoveredMesh(null)}
         position={[-0.457, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
       <mesh
         geometry={nodes.Ninth_ThreejsJourney_Baked.geometry}
-        material={getMaterial("three", [0.399, 0.6])}
+        material={getMaterial("threejsjourney", [0.399, 0.6])}
+        onPointerOver={() => setHoveredMesh("threejsjourney")}
+        onPointerOut={() => setHoveredMesh(null)}
         position={[2.778, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
       <mesh
         geometry={nodes.Ninth_Blender_Baked.geometry}
-        material={getMaterial("three", [0.399, 0.6])}
+        material={getMaterial("blender", [0.399, 0.6])}
+        onPointerOver={() => setHoveredMesh("blender")}
+        onPointerOut={() => setHoveredMesh(null)}
         position={[12.806, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
       <mesh
         geometry={nodes.Ninth_Threejs_Baked.geometry}
-        material={getMaterial("three", [0.399, 0.6])}
+        material={getMaterial("threejs", [0.399, 0.6])}
+        onPointerOver={() => setHoveredMesh("threejs")}
+        onPointerOut={() => setHoveredMesh(null)}
         position={[9.538, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
       <mesh
         geometry={nodes.Ninth_Paper_Baked.geometry}
-        material={getMaterial("three", [0.399, 0.6])}
+        material={newMaterials["Ninth_Final_Baked"]}
         position={[6.122, 6.808, -35.966]}
       />
     </group>

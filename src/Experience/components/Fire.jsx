@@ -1,7 +1,6 @@
 import * as THREE from "three";
-import { useLayoutEffect, useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { extend, useFrame, useLoader } from "@react-three/fiber";
-import { Instance, Instances } from "@react-three/drei";
 
 class FireMaterial extends THREE.ShaderMaterial {
   constructor() {
@@ -24,7 +23,7 @@ class FireMaterial extends THREE.ShaderMaterial {
           void main() {
             gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
             vWorldPos = (modelMatrix * vec4(position, 1.0)).xyz;
-          }`,
+          }`, // Keep your existing vertex shader
       fragmentShader: `
       //    Simplex 3D Noise 
         //    by Ian McEwan, Stefan Gustavson (https://github.com/stegu/webgl-noise)
@@ -152,38 +151,82 @@ class FireMaterial extends THREE.ShaderMaterial {
             }
             col.a = col.r;
             gl_FragColor = col;
-          }`,
+          }`, // Keep your existing fragment shader
     });
   }
 }
 
 extend({ FireMaterial });
 
-export default function Fire({ color, ...props }) {
-  const ref = useRef();
+function FireElement({ color, ...props }) {
+  const meshRef = useRef();
+  const materialRef = useRef();
   const texture = useLoader(THREE.TextureLoader, "/images/fire.png");
-  useFrame((state) => {
-    const invModelMatrix = ref.current.material.uniforms.invModelMatrix.value;
-    ref.current.updateMatrixWorld();
-    invModelMatrix.copy(ref.current.matrixWorld).invert();
-    ref.current.material.uniforms.time.value = state.clock.elapsedTime;
-    ref.current.material.uniforms.invModelMatrix.value = invModelMatrix;
-    ref.current.material.uniforms.scale.value = ref.current.scale;
-  });
+
   useLayoutEffect(() => {
+    if (!materialRef.current) return;
+
     texture.magFilter = texture.minFilter = THREE.LinearFilter;
     texture.wrapS = texture.wrapT = THREE.ClampToEdgeWrapping;
-    ref.current.material.uniforms.fireTex.value = texture;
-    ref.current.material.uniforms.color.value =
+    materialRef.current.uniforms.fireTex.value = texture;
+    materialRef.current.uniforms.color.value =
       color || new THREE.Color(0xeeeeee);
-    ref.current.material.uniforms.invModelMatrix.value = new THREE.Matrix4();
-    ref.current.material.uniforms.scale.value = new THREE.Vector3(1, 1, 1);
-    ref.current.material.uniforms.seed.value = Math.random() * 19.19;
-  }, []);
+    materialRef.current.uniforms.invModelMatrix.value = new THREE.Matrix4();
+    materialRef.current.uniforms.scale.value = new THREE.Vector3(1, 1, 1);
+    materialRef.current.uniforms.seed.value = Math.random() * 19.19;
+  }, [texture, color]);
+
+  useFrame((state) => {
+    if (!meshRef.current || !materialRef.current) return;
+
+    const invModelMatrix = materialRef.current.uniforms.invModelMatrix.value;
+    meshRef.current.updateMatrixWorld();
+    invModelMatrix.copy(meshRef.current.matrixWorld).invert();
+    materialRef.current.uniforms.time.value = state.clock.elapsedTime;
+    materialRef.current.uniforms.invModelMatrix.value = invModelMatrix;
+    materialRef.current.uniforms.scale.value = meshRef.current.scale;
+  });
+
   return (
-    <mesh ref={ref} {...props} renderOrder={1}>
+    <mesh ref={meshRef} {...props} renderOrder={1}>
       <boxGeometry />
-      <fireMaterial transparent depthWrite={false} />
+      <fireMaterial ref={materialRef} transparent depthWrite={false} />
     </mesh>
+  );
+}
+
+export default function Fire(props) {
+  return (
+    <group {...props}>
+      {/* Main Fires */}
+      <FireElement scale={[1.4, 4, 1.4]} position={[-12.979, 9.52, -14.4]} />
+      <FireElement scale={[1.4, 4, 1.4]} position={[-9.29, 9.52, -14.4]} />
+      <FireElement scale={[1.4, 4, 1.4]} position={[21.279, 9.52, -14.4]} />
+      <FireElement scale={[1.4, 4, 1.4]} position={[24.93, 9.52, -14.4]} />
+      <FireElement scale={[1.4, 4, 1.4]} position={[28.789, 9.52, -14.4]} />
+
+      {/* Outside Torches */}
+      <FireElement
+        scale={[0.38, 1.4, 0.38]}
+        rotation={[0.3, 0, 0]}
+        position={[9.1, 10.32, -18.4]}
+      />
+      <FireElement
+        scale={[0.38, 1.4, 0.38]}
+        rotation={[0.3, 0, 0]}
+        position={[3.28, 10.32, -18.4]}
+      />
+      <FireElement
+        scale={[0.38, 1.4, 0.38]}
+        rotation={[0.3, 0, 0]}
+        position={[5.724, 17.3, -15.6]}
+      />
+
+      {/* Inside Torches */}
+      <FireElement scale={[0.38, 2, 0.38]} position={[11.27, 8.62, -27.25]} />
+      <FireElement scale={[0.38, 2, 0.38]} position={[1.4, 8.62, -27.15]} />
+      <FireElement scale={[0.38, 2, 0.38]} position={[11.27, 8.62, -45.25]} />
+      <FireElement scale={[0.38, 2, 0.38]} position={[1.4, 8.62, -45.15]} />
+    </group>
   );
 }

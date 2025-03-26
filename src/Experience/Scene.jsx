@@ -16,7 +16,6 @@ import Ninth from "./models/Ninth";
 import Tenth from "./models/Tenth";
 import Eleventh from "./models/Eleventh";
 import Background from "./models/Background";
-
 import {
   cameraCurve,
   DebugCurve,
@@ -24,6 +23,8 @@ import {
   rotationTargets,
 } from "./utils/curve";
 import Fire from "./components/Fire";
+import WaterFall from "./components/WaterFall";
+// import Waterfall from "./components/WaterFall";
 
 const Scene = ({
   cameraGroup,
@@ -181,37 +182,8 @@ const Scene = ({
         <Tenth />
         <Eleventh />
         <Background />
-
-        {/* Braizer Fire */}
-        <Fire scale={[1.4, 4, 1.4]} position={[-12.979, 9.52, -14.4]} />
-        <Fire scale={[1.4, 4, 1.4]} position={[-9.29, 9.52, -14.4]} />
-        <Fire scale={[1.4, 4, 1.4]} position={[21.279, 9.52, -14.4]} />
-        <Fire scale={[1.4, 4, 1.4]} position={[24.93, 9.52, -14.4]} />
-        <Fire scale={[1.4, 4, 1.4]} position={[28.789, 9.52, -14.4]} />
-
-        {/* Outside Torches Fire */}
-        <Fire
-          scale={[0.38, 1.4, 0.38]}
-          rotation={[0.3, 0, 0]}
-          position={[9.1, 10.32, -18.4]}
-        />
-        <Fire
-          scale={[0.38, 1.4, 0.38]}
-          rotation={[0.3, 0, 0]}
-          position={[3.28, 10.32, -18.4]}
-        />
-
-        <Fire
-          scale={[0.38, 1.4, 0.38]}
-          rotation={[0.3, 0, 0]}
-          position={[5.724, 17.3, -15.6]}
-        />
-
-        {/* Outside Torches Fire */}
-        <Fire scale={[0.38, 2, 0.38]} position={[11.27, 8.62, -27.25]} />
-        <Fire scale={[0.38, 2, 0.38]} position={[1.4, 8.62, -27.15]} />
-        <Fire scale={[0.38, 2, 0.38]} position={[11.27, 8.62, -45.25]} />
-        <Fire scale={[0.38, 2, 0.38]} position={[1.4, 8.62, -45.15]} />
+        <Fire />
+        <WaterFall />
       </Suspense>
     </>
   );
