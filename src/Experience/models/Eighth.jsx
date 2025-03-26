@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.5.3 Eighth.glb
 */
 
 import React from "react";
-import { useGLTF, Instance, Instances } from "@react-three/drei";
+import { Instance, Instances } from "@react-three/drei";
 import { useGLTFWithKTX2 } from "../utils/useGLTFWithKTX2";
 import { convertMaterialsToBasic } from "../utils/convertToBasic";
 

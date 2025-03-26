@@ -16,7 +16,7 @@ class FireMaterial extends THREE.ShaderMaterial {
         noiseScale: { type: "v4", value: new THREE.Vector4(1, 2, 1, 0.3) },
         magnitude: { type: "f", value: 2.5 },
         lacunarity: { type: "f", value: 3.0 },
-        gain: { type: "f", value: 0.6 },
+        gain: { type: "f", value: 0.3 },
       },
       vertexShader: `
           varying vec3 vWorldPos;
@@ -140,7 +140,7 @@ class FireMaterial extends THREE.ShaderMaterial {
           void main() {
             vec3 rayPos = vWorldPos;
             vec3 rayDir = normalize(rayPos - cameraPosition);
-            float rayLen = 0.0588 * length(scale.xyz);
+            float rayLen = 0.0388 * length(scale.xyz);
             vec4 col = vec4(0.0);
             for(int i = 0; i < ITERATIONS; i++) {
               rayPos += rayDir * rayLen;
