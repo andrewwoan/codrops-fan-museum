@@ -9,7 +9,7 @@ export function convertMaterialsToBasic(materials, alphaTestValue = 0) {
       map: oldMaterial.map,
       transparent: oldMaterial.transparent,
       side: oldMaterial.transparent ? THREE.DoubleSide : THREE.FrontSide,
-      alphaTest: oldMaterial.transparent ? 0.1 : alphaTestValue,
+      alphaTest: oldMaterial.transparent ? 0.4 : alphaTestValue,
     });
     newMaterials[key] = newMaterial;
   });
