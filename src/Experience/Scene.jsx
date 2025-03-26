@@ -18,6 +18,7 @@ import Eleventh from "./models/Eleventh";
 import Background from "./models/Background";
 
 import { cameraCurve, DebugCurve, CameraHelper } from "./utils/curve";
+import Fire from "./components/Fire";
 
 const Scene = ({
   cameraGroup,
@@ -132,6 +133,7 @@ const Scene = ({
         <Tenth />
         <Eleventh />
         <Background />
+        <Fire scale={10} />
       </Suspense>
     </>
   );
