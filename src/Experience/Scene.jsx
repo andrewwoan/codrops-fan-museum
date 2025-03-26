@@ -70,21 +70,21 @@ const Scene = ({
       //   0.1
       // );
 
-      camera.current.position.x = THREE.MathUtils.lerp(
-        camera.current.position.x,
-        basePoint.x,
-        0.1
-      );
-      camera.current.position.y = THREE.MathUtils.lerp(
-        camera.current.position.y,
-        basePoint.y,
-        0.1
-      );
-      camera.current.position.z = THREE.MathUtils.lerp(
-        camera.current.position.z,
-        basePoint.z,
-        0.1
-      );
+      // camera.current.position.x = THREE.MathUtils.lerp(
+      //   camera.current.position.x,
+      //   basePoint.x,
+      //   0.1
+      // );
+      // camera.current.position.y = THREE.MathUtils.lerp(
+      //   camera.current.position.y,
+      //   basePoint.y,
+      //   0.1
+      // );
+      // camera.current.position.z = THREE.MathUtils.lerp(
+      //   camera.current.position.z,
+      //   basePoint.z,
+      //   0.1
+      // );
 
       // camera.current.position.x = THREE.MathUtils.lerp(
       //   camera.current.position.x,
@@ -133,7 +133,11 @@ const Scene = ({
         <Tenth />
         <Eleventh />
         <Background />
-        <Fire scale={10} />
+        <Fire scale={1.4} position={[-12.979, 8.3, -14.4]} />
+        <Fire scale={1.4} position={[-9.29, 8.3, -14.4]} />
+        <Fire scale={1.4} position={[21.279, 8.3, -14.4]} />
+        <Fire scale={1.4} position={[24.93, 8.3, -14.4]} />
+        <Fire scale={1.4} position={[28.789, 8.3, -14.4]} />
       </Suspense>
     </>
   );
