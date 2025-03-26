@@ -119,7 +119,7 @@ const Experience = () => {
         <group ref={cameraGroup}>
           <PerspectiveCamera
             ref={camera}
-            fov={70}
+            fov={72}
             makeDefault
             position={[0, 10, 0]}
           />
