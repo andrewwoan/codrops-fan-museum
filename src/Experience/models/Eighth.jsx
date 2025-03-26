@@ -1,12 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState, forwardRef } from "react";
 import { Instance, Instances } from "@react-three/drei";
 import { useGLTFWithKTX2 } from "../utils/useGLTFWithKTX2";
 import { convertMaterialsToBasic } from "../utils/convertToBasic";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-// Custom shader material for tree sway
-const TreeSwayMaterial = React.forwardRef((props, ref) => {
+const TreeSwayMaterial = forwardRef((props, ref) => {
   const uniforms = useRef({
     time: { value: 0 },
     swayAmount: { value: 0.3 },
@@ -68,7 +67,7 @@ void main() {
   `;
 
   const fragmentShader = `
-    uniform sampler2D map; // Texture uniform
+    uniform sampler2D map; 
     varying vec2 vUv;
     varying float vHeight;
     
@@ -99,7 +98,6 @@ export default function Model(props) {
   const { nodes, materials } = useGLTFWithKTX2("/models/Eighth.glb");
   const newMaterials = convertMaterialsToBasic(materials);
   const materialRef = useRef();
-
   return (
     <group {...props} dispose={null}>
       <mesh

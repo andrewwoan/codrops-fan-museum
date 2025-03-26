@@ -91,9 +91,6 @@ const Scene = ({
 
       setscrollProgress(newProgress);
 
-      console.log(camera.current.rotation);
-      console.log(newProgress);
-
       const basePoint = cameraCurve.getPoint(newProgress);
 
       cameraGroup.current.position.x = THREE.MathUtils.lerp(
@@ -180,7 +177,7 @@ const Scene = ({
         <Sixth />
         <Seventh />
         <Eighth />
-        <Ninth />
+        <Ninth progress={scrollProgress} pulseIntensity={pulseIntensity} />
         <Tenth />
         <Eleventh />
         <Background />
