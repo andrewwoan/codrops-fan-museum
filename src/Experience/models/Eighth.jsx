@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { Instance, Instances } from "@react-three/drei";
 import { useGLTFWithKTX2 } from "../utils/useGLTFWithKTX2";
 import { convertMaterialsToBasic } from "../utils/convertToBasic";
@@ -90,6 +90,7 @@ void main() {
       transparent={true}
       alphaTest={0.5}
       side={THREE.DoubleSide}
+      renderOrder={1}
     />
   );
 });

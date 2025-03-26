@@ -20,7 +20,8 @@ const Experience = () => {
   const scrollSpeed = 0.005;
   const lerpFactor = 0.1;
   const isSwiping = useRef(false);
-  const mouseOffset = useRef(new THREE.Vector3());
+  const mousePositionOffset = useRef(new THREE.Vector3());
+  const mouseRotationOffset = useRef(new THREE.Euler());
   const { isModalOpen } = useModalStore();
   const lastTouchY = useRef(null);
 
@@ -42,8 +43,14 @@ const Experience = () => {
       const sensitivityX = 0.25;
       const sensitivityY = 0.25;
 
-      mouseOffset.current.x = mouseX * sensitivityX;
-      mouseOffset.current.y = mouseY * sensitivityY;
+      const rotationSensitivityX = 0.06;
+      const rotationSensitivityY = 0.06;
+
+      mousePositionOffset.current.x = mouseX * sensitivityX;
+      mousePositionOffset.current.y = mouseY * sensitivityY;
+
+      mouseRotationOffset.current.x = mouseY * rotationSensitivityX;
+      mouseRotationOffset.current.y = mouseX * rotationSensitivityY;
     };
 
     const handleTouchStart = (e) => {
@@ -125,7 +132,8 @@ const Experience = () => {
           setscrollProgress={setscrollProgress}
           targetScrollProgress={targetScrollProgress}
           lerpFactor={lerpFactor}
-          mouseOffset={mouseOffset}
+          mousePositionOffset={mousePositionOffset}
+          mouseRotationOffset={mouseRotationOffset}
         />
       </Canvas>
     </>

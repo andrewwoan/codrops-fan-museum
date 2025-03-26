@@ -2,15 +2,11 @@ import * as THREE from "three";
 
 export const cameraCurve = new THREE.CatmullRomCurve3(
   [
-    new THREE.Vector3(
-      6.577763360438033,
-      10.856284964410769,
-      20.640379680866076
-    ),
+    new THREE.Vector3(6.577763360438033, 8.856284964410769, 20.640379680866076),
     new THREE.Vector3(6.15, 9.66248066285629, -9.514943289676541),
     new THREE.Vector3(6.15, 9.66248066285629, -25.514943289676541),
     new THREE.Vector3(6.15, 8.58385544864918, -35.15952064804525),
-    new THREE.Vector3(6.15, 8.58385544864918, -36.15952064804525),
+    new THREE.Vector3(6.1, 8.58385544864918, -39.15952064804525),
     new THREE.Vector3(-0, 9.095692752216793, -43.04820648294106),
     new THREE.Vector3(
       12.9432496218694319,
@@ -96,7 +92,7 @@ export const rotationTargets = [
     rotation: new THREE.Euler(
       -0.026015217004565497,
       0.019361968160347905,
-      0.0005037879475436998
+      0.0605037879475436998
     ),
   },
   {
@@ -104,7 +100,7 @@ export const rotationTargets = [
     rotation: new THREE.Euler(
       -0.03715278867725955,
       0.03581271756827499,
-      0.0013308695485603585
+      -0.0213308695485603585
     ),
   },
   {

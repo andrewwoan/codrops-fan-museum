@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useEffect, useRef } from "react";
 import { extend, useFrame, useLoader } from "@react-three/fiber";
 
 class FireMaterial extends THREE.ShaderMaterial {

@@ -32,7 +32,8 @@ const Scene = ({
   setscrollProgress,
   targetScrollProgress,
   lerpFactor,
-  mouseOffset,
+  mousePositionOffset,
+  mouseRotationOffset,
 }) => {
   const [pulseIntensity, setPulseIntensity] = useState(0);
   const [rotationBuffer, setRotationBuffer] = useState(
@@ -113,27 +114,43 @@ const Scene = ({
 
       camera.current.position.x = THREE.MathUtils.lerp(
         camera.current.position.x,
-        mouseOffset.current.x,
+        mousePositionOffset.current.x,
         0.1
       );
       camera.current.position.y = THREE.MathUtils.lerp(
         camera.current.position.y,
-        -mouseOffset.current.y,
+        -mousePositionOffset.current.y,
         0.1
       );
       camera.current.position.z = 0;
 
+      // Get the base camera rotation from your existing system
       const targetRotation = getLerpedRotation(newProgress);
 
+      // Apply smoothing to base rotation
       const smoothedRotation = new THREE.Euler(
         THREE.MathUtils.lerp(rotationBuffer.x, targetRotation.x, 0.05),
         THREE.MathUtils.lerp(rotationBuffer.y, targetRotation.y, 0.05),
         THREE.MathUtils.lerp(rotationBuffer.z, targetRotation.z, 0.05)
       );
 
+      // Update the rotation buffer
       setRotationBuffer(smoothedRotation);
 
+      // Apply the base rotation to the camera group
       cameraGroup.current.rotation.copy(smoothedRotation);
+
+      // Add mouse-based rotation to the camera itself (local rotation)
+      camera.current.rotation.x = THREE.MathUtils.lerp(
+        camera.current.rotation.x,
+        -mouseRotationOffset.current.x,
+        0.1
+      );
+      camera.current.rotation.y = THREE.MathUtils.lerp(
+        camera.current.rotation.y,
+        -mouseRotationOffset.current.y,
+        0.1
+      );
     }
   });
 
@@ -152,7 +169,7 @@ const Scene = ({
         ]}
       />
       <fogExp2 attach="fog" color="#403e3e" density={0.0125} />
-      <DebugCurve curve={cameraCurve} />
+      {/* <DebugCurve curve={cameraCurve} /> */}
 
       <Suspense fallback={null}>
         <First />
