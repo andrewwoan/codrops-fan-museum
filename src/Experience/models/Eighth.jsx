@@ -107,6 +107,7 @@ export default function Model(props) {
         material={newMaterials.Eighth_Baked}
         position={[-5.2, 9.818, -23.394]}
         rotation={[0, -0.091, 0]}
+        renderOrder={2}
       />
       <Instances limit={10} geometry={nodes.Eighth_Tree_Baked.geometry}>
         <TreeSwayMaterial
@@ -132,7 +133,7 @@ export default function Model(props) {
         />
         <Instance
           position={[21.885, -1.852, 0.243]}
-          rotation={[0.093, 0.3, -0.048]}
+          rotation={[0.093, 0.32, -0.048]}
           scale={1}
         />
         <Instance
@@ -143,12 +144,12 @@ export default function Model(props) {
         <Instance
           position={[-20, 3.852, -2.243]}
           rotation={[0.093, 1.2, -0.048]}
-          scale={0.9}
+          scale={0.8}
         />
         <Instance
-          position={[-21, 4.852, -15.243]}
+          position={[-22, 4.852, -15.243]}
           rotation={[0.093, 0.3, -0.048]}
-          scale={1.4}
+          scale={1.2}
         />
         <Instance
           position={[-19, 4.252, -25.243]}
@@ -162,7 +163,7 @@ export default function Model(props) {
         />
         <Instance
           position={[39.885, 2.252, -45.243]}
-          rotation={[0.093, 1.5, -0.048]}
+          rotation={[0.093, 1.1, -0.048]}
           scale={2}
         />
       </Instances>

@@ -180,7 +180,7 @@ export default function Fire({ color, ...props }) {
     ref.current.material.uniforms.seed.value = Math.random() * 19.19;
   }, []);
   return (
-    <mesh ref={ref} {...props}>
+    <mesh ref={ref} {...props} renderOrder={1}>
       <boxGeometry />
       <fireMaterial transparent depthWrite={false} />
     </mesh>

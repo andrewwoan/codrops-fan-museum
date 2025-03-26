@@ -43,8 +43,8 @@ const Experience = () => {
       const sensitivityX = 0.25;
       const sensitivityY = 0.25;
 
-      const rotationSensitivityX = 0.06;
-      const rotationSensitivityY = 0.06;
+      const rotationSensitivityX = 0.1;
+      const rotationSensitivityY = 0.1;
 
       mousePositionOffset.current.x = mouseX * sensitivityX;
       mousePositionOffset.current.y = mouseY * sensitivityY;
