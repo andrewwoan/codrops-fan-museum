@@ -14,43 +14,38 @@ export default function Model(props) {
   return (
     <group {...props} dispose={null}>
       <mesh
-        geometry={nodes.Ninth_Extras_Baked.geometry}
-        material={newMaterials.Ninth_Baked}
-        position={[6.122, 6.808, -35.966]}
-      />
-      <mesh
         geometry={nodes.Ninth_Codrops_Baked.geometry}
-        material={newMaterials.Ninth_Baked}
+        material={newMaterials.Ninth_Final_Baked}
         position={[6.136, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
       <mesh
         geometry={nodes.Ninth_CSSTricks_Baked.geometry}
-        material={newMaterials.Ninth_Baked}
+        material={newMaterials.Ninth_Final_Baked}
         position={[-0.457, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
       <mesh
         geometry={nodes.Ninth_ThreejsJourney_Baked.geometry}
-        material={newMaterials.Ninth_Baked}
+        material={newMaterials.Ninth_Final_Baked}
         position={[2.778, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
       <mesh
         geometry={nodes.Ninth_Blender_Baked.geometry}
-        material={newMaterials.Ninth_Baked}
+        material={newMaterials.Ninth_Final_Baked}
         position={[12.806, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
       <mesh
         geometry={nodes.Ninth_Threejs_Baked.geometry}
-        material={newMaterials.Ninth_Baked}
+        material={newMaterials.Ninth_Final_Baked}
         position={[9.538, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
       <mesh
         geometry={nodes.Ninth_Paper_Baked.geometry}
-        material={newMaterials.Ninth_Baked}
+        material={newMaterials.Ninth_Final_Baked}
         position={[6.122, 6.808, -35.966]}
       />
     </group>
