@@ -8,6 +8,7 @@ import { useGLTFWithKTX2 } from "../utils/useGLTFWithKTX2";
 import { convertMaterialsToBasic } from "../utils/convertToBasic";
 import * as THREE from "three";
 import { useModalStore } from "../../stores/useModalStore";
+import { playSound } from "../../utils/audioSystem.js";
 
 export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
   const { nodes, materials } = useGLTFWithKTX2("/models/Ninth.glb");
@@ -60,8 +61,8 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
   );
 
   useEffect(() => {
-    if (progress >= 0.399 && progress <= 0.6 && !isModalOpen)
-      document.body.style.cursor = hoveredMesh ? "pointer" : "auto";
+    if (progress <= 0.399 || progress >= 0.6 || isModalOpen) return;
+    document.body.style.cursor = hoveredMesh ? "pointer" : "auto";
 
     return () => {
       document.body.style.cursor = "auto";
@@ -73,8 +74,18 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
       if (progress <= 0.399 || progress >= 0.6 || isModalOpen) return;
       openModal();
       setModalID(elementID);
+      playSound("thumpHover");
     },
     [progress, isModalOpen, openModal, setModalID]
+  );
+
+  const handlePointerOver = useMemo(
+    () => (meshId) => {
+      setHoveredMesh(meshId);
+      if (progress <= 0.399 || progress >= 0.6 || isModalOpen) return;
+      playSound("thumpHover");
+    },
+    [isModalOpen, progress]
   );
 
   const meshes = useMemo(
@@ -125,7 +136,7 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
           key={mesh.id}
           geometry={mesh.geometry}
           material={getMaterial(mesh.id, mesh.progressRange)}
-          onPointerOver={() => setHoveredMesh(mesh.id)}
+          onPointerOver={() => handlePointerOver(mesh.id)}
           onPointerOut={() => setHoveredMesh(null)}
           onClick={() => handleClick(mesh.id)}
           position={mesh.position}

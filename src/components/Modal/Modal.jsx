@@ -2,10 +2,16 @@ import React, { useEffect, useRef } from "react";
 import "./Modal.scss";
 import { useModalStore } from "../../stores/useModalStore";
 import { modalContent } from "../../data/modalContent";
+import { playSound } from "../../utils/audioSystem.js";
 
 const Modal = () => {
   const { isModalOpen, modalID, closeModal } = useModalStore();
   const modalRef = useRef(null);
+
+  const handleClose = () => {
+    playSound("thumpHover");
+    closeModal();
+  };
 
   useEffect(() => {
     const handleEscapeKey = (e) => {
@@ -57,7 +63,7 @@ const Modal = () => {
   return (
     <div className="modal-overlay">
       <div className="modal-container" ref={modalRef}>
-        <button className="modal-back-button" onClick={closeModal}>
+        <button className="modal-back-button" onClick={handleClose}>
           <svg
             width="20"
             height="20"
