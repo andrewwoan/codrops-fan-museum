@@ -4,7 +4,7 @@ import "./LoadingScreen.scss";
 
 import { useProgress } from "@react-three/drei";
 
-import { playBackgroundMusic } from "../../utils/audioSystem.js";
+import { playBackgroundMusic, playSound } from "../../utils/audioSystem.js";
 
 const LoadingScreen = () => {
   const { progress } = useProgress();
@@ -14,6 +14,7 @@ const LoadingScreen = () => {
   const handleReveal = () => {
     setIsRevealed(true);
     playBackgroundMusic();
+    playSound("backgroundAmbience");
   };
 
   const handleAnimationFinished = () => {

@@ -8,10 +8,12 @@ const sounds = {
     loop: true,
     volume: 0.7,
   }),
-  chainExit: new Howl({
-    src: ["/audio/sfx/chain_exit.ogg"],
-    volume: 1.0,
+  backgroundAmbience: new Howl({
+    src: ["/audio/sfx/background_ambience.ogg"],
+    loop: true,
+    volume: 0.7,
   }),
+
   thumpHover: new Howl({
     src: ["/audio/sfx/thump_hover.ogg"],
     loop: false,
