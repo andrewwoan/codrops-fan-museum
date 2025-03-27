@@ -15,6 +15,7 @@ import Eighth from "./models/Eighth";
 import Ninth from "./models/Ninth";
 import Tenth from "./models/Tenth";
 import Eleventh from "./models/Eleventh";
+import Bird from "./models/Bird";
 import Background from "./models/Background";
 import {
   cameraCurve,
@@ -25,6 +26,7 @@ import {
 import Fire from "./components/Fire";
 import WaterFall from "./components/WaterFall";
 // import Waterfall from "./components/WaterFall";
+import { BirdPathDebug, createBirdPath } from "./utils/birdPath";
 
 const Scene = ({
   cameraGroup,
@@ -183,6 +185,7 @@ const Scene = ({
         <Ninth progress={scrollProgress} pulseIntensity={pulseIntensity} />
         <Tenth />
         <Eleventh />
+        <Bird time={timeRef.current} position={[-20, 40, -45]} scale={0.02} />
         <Background />
         <Fire time={timeRef.current} />
         <WaterFall time={timeRef.current} />

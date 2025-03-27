@@ -1,8 +1,7 @@
-import React, { useRef, useEffect, useState, forwardRef } from "react";
+import React, { useRef, useEffect, useState, useMemo, forwardRef } from "react";
 import { Instance, Instances } from "@react-three/drei";
 import { useGLTFWithKTX2 } from "../utils/useGLTFWithKTX2";
 import { convertMaterialsToBasic } from "../utils/convertToBasic";
-import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 const TreeSwayMaterial = forwardRef(({ time, ...props }, ref) => {
@@ -98,7 +97,10 @@ const TreeSwayMaterial = forwardRef(({ time, ...props }, ref) => {
 
 export default function Model(props) {
   const { nodes, materials } = useGLTFWithKTX2("/models/Eighth.glb");
-  const newMaterials = convertMaterialsToBasic(materials);
+  const newMaterials = useMemo(
+    () => convertMaterialsToBasic(materials),
+    [materials]
+  );
   const materialRef = useRef();
   return (
     <group {...props} dispose={null}>
