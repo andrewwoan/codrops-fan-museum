@@ -39,7 +39,7 @@ export default function Model(props) {
       />
 
       <Instance
-        position={[220.311, -42.468, -90.652]}
+        position={[200.311, -42.468, -90.652]}
         rotation={[Math.PI / 2, 0, 0.2]}
         scale={145}
       />

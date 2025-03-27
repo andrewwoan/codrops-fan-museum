@@ -202,7 +202,7 @@ export default function Fire({ time, ...props }) {
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
-        position={[-12.979, 9.52, -14.4]}
+        position={[-13.1, 9.52, -14.4]}
       />
       <FireElement
         time={time}
@@ -217,7 +217,7 @@ export default function Fire({ time, ...props }) {
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
-        position={[24.93, 9.52, -14.4]}
+        position={[25, 9.52, -14.4]}
       />
       <FireElement
         time={time}
@@ -242,7 +242,7 @@ export default function Fire({ time, ...props }) {
         time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
-        position={[5.724, 17.3, -15.6]}
+        position={[5.69, 17.25, -15.49]}
       />
 
       {/* Inside Torches */}
