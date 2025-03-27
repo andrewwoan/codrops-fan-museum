@@ -25,8 +25,6 @@ import {
 } from "./utils/curve";
 import Fire from "./components/Fire";
 import WaterFall from "./components/WaterFall";
-// import Waterfall from "./components/WaterFall";
-import { BirdPathDebug, createBirdPath } from "./utils/birdPath";
 
 const Scene = ({
   cameraGroup,
