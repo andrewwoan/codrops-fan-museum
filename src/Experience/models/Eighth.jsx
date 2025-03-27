@@ -119,16 +119,16 @@ export default function Model(props) {
         />
         <Instance
           position={[29.885, -1.852, -2.243]}
-          rotation={[0.093, 0.914, -0.048]}
+          rotation={[0.095, 0.4214, -0.048]}
           scale={0.9}
         />
         <Instance
-          position={[13, -1.852, 3.543]}
-          rotation={[0.093, 0.914, -0.048]}
+          position={[13, -1.852, 4.543]}
+          rotation={[0.093, 0.714, -0.048]}
           scale={0.82}
         />
         <Instance
-          position={[-1.885, -1.852, 3.243]}
+          position={[-2.885, -1.852, 5.243]}
           rotation={[0.093, 0.914, -0.048]}
           scale={0.9}
         />
@@ -144,7 +144,7 @@ export default function Model(props) {
         />
         <Instance
           position={[-20, 3.852, -2.243]}
-          rotation={[0.093, 1.2, -0.048]}
+          rotation={[0.093, 1.2, -0.058]}
           scale={0.8}
         />
         <Instance
@@ -159,7 +159,7 @@ export default function Model(props) {
         />
         <Instance
           position={[39.885, 2.252, -23.243]}
-          rotation={[0.093, 1.5, -0.048]}
+          rotation={[0.093, 1.5, -0.028]}
           scale={1.2}
         />
         <Instance

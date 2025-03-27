@@ -7,10 +7,12 @@ import React, { useRef, useEffect, useState } from "react";
 import { useGLTFWithKTX2 } from "../utils/useGLTFWithKTX2";
 import { convertMaterialsToBasic } from "../utils/convertToBasic";
 import * as THREE from "three";
+import { useModalStore } from "../../stores/useModalStore";
 
 export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
   const { nodes, materials } = useGLTFWithKTX2("/models/Ninth.glb");
   const [hoveredMesh, setHoveredMesh] = useState(null);
+  const { openModal, setModalID, isModalOpen } = useModalStore();
 
   const newMaterials = convertMaterialsToBasic(materials);
 
@@ -39,6 +41,12 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
       document.body.style.cursor = hoveredMesh ? "pointer" : "auto";
   }, [hoveredMesh]);
 
+  const handleClick = (elementID) => {
+    if (progress <= 0.399 || progress >= 0.6 || isModalOpen) return;
+    openModal();
+    setModalID(elementID);
+  };
+
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -46,6 +54,9 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
         material={getMaterial("codrops", [0.399, 0.6])}
         onPointerOver={() => setHoveredMesh("codrops")}
         onPointerOut={() => setHoveredMesh(null)}
+        onClick={() => {
+          handleClick("codrops");
+        }}
         position={[6.136, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
@@ -54,6 +65,9 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
         material={getMaterial("csstricks", [0.399, 0.6])}
         onPointerOver={() => setHoveredMesh("csstricks")}
         onPointerOut={() => setHoveredMesh(null)}
+        onClick={() => {
+          handleClick("csstricks");
+        }}
         position={[-0.457, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
@@ -62,6 +76,9 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
         material={getMaterial("threejsjourney", [0.399, 0.6])}
         onPointerOver={() => setHoveredMesh("threejsjourney")}
         onPointerOut={() => setHoveredMesh(null)}
+        onClick={() => {
+          handleClick("threejsjourney");
+        }}
         position={[2.778, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
@@ -70,6 +87,9 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
         material={getMaterial("blender", [0.399, 0.6])}
         onPointerOver={() => setHoveredMesh("blender")}
         onPointerOut={() => setHoveredMesh(null)}
+        onClick={() => {
+          handleClick("blender");
+        }}
         position={[12.806, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />
@@ -78,6 +98,9 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
         material={getMaterial("threejs", [0.399, 0.6])}
         onPointerOver={() => setHoveredMesh("threejs")}
         onPointerOut={() => setHoveredMesh(null)}
+        onClick={() => {
+          handleClick("threejs");
+        }}
         position={[9.538, 9.285, -48.469]}
         rotation={[Math.PI / 2, 0, 0]}
       />

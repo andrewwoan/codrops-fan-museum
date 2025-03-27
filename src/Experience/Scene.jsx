@@ -93,7 +93,6 @@ const Scene = ({
       }
 
       setscrollProgress(newProgress);
-      console.log(newProgress);
 
       const basePoint = cameraCurve.getPoint(newProgress);
 

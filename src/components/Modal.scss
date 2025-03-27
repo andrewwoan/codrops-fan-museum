@@ -1,0 +1,194 @@
+// Modal.scss
+@import "../styles/variables"; // Import your variables if needed
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-container {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  background-color: #121212;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  z-index: 1;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.modal-content {
+  padding: 70px 40px 40px;
+  overflow-y: auto;
+  color: #ffffff;
+}
+
+.modal-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #ffffff;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #3a86ff, #8338ec);
+    border-radius: 3px;
+  }
+}
+
+.modal-paragraphs {
+  margin-bottom: 30px;
+
+  p {
+    margin-bottom: 16px;
+    line-height: 1.6;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.9);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.modal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(90deg, #3a86ff, #8338ec);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s ease;
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    background: linear-gradient(90deg, #5a96ff, #9348fc);
+    box-shadow: 0 4px 20px rgba(58, 134, 255, 0.3);
+
+    svg {
+      transform: translateX(3px);
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .modal-container {
+    width: 95%;
+  }
+
+  .modal-content {
+    padding: 60px 24px 30px;
+  }
+
+  .modal-title {
+    font-size: 26px;
+  }
+
+  .modal-paragraphs p {
+    font-size: 15px;
+  }
+}
+
+// Dark theme support
+@media (prefers-color-scheme: light) {
+  .modal-container {
+    background-color: #f8f9fa;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+  }
+
+  .modal-back-button {
+    color: #121212;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .modal-content {
+    color: #212529;
+  }
+
+  .modal-title {
+    color: #212529;
+  }
+
+  .modal-paragraphs p {
+    color: rgba(0, 0, 0, 0.85);
+  }
+}
