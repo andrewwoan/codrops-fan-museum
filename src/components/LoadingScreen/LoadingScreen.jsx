@@ -5,16 +5,20 @@ import "./LoadingScreen.scss";
 import { useProgress } from "@react-three/drei";
 
 import { playBackgroundMusic, playSound } from "../../utils/audioSystem.js";
+import { useExperienceStore } from "../../utils/experienceStore.js";
 
 const LoadingScreen = () => {
   const { progress } = useProgress();
   const [isRevealed, setIsRevealed] = useState(false);
   const [isAnimationFinished, setIsAnimationFinished] = useState(false);
 
+  const { setIsExperienceReady } = useExperienceStore();
+
   const handleReveal = () => {
     setIsRevealed(true);
     playBackgroundMusic();
     playSound("backgroundAmbience");
+    setIsExperienceReady();
   };
 
   const handleAnimationFinished = () => {

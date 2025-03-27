@@ -11,7 +11,7 @@ const sounds = {
   backgroundAmbience: new Howl({
     src: ["/audio/sfx/background_ambience.ogg"],
     loop: true,
-    volume: 0.7,
+    volume: 0.8,
   }),
 
   thumpHover: new Howl({

@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import { useLayoutEffect, useRef, useEffect } from "react";
 import { extend, useFrame, useLoader } from "@react-three/fiber";
+import { PositionalAudio } from "@react-three/drei";
+import { useExperienceStore } from "../../utils/experienceStore";
 
 class FireMaterial extends THREE.ShaderMaterial {
   constructor() {
@@ -23,7 +25,7 @@ class FireMaterial extends THREE.ShaderMaterial {
           void main() {
             gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
             vWorldPos = (modelMatrix * vec4(position, 1.0)).xyz;
-          }`, // Keep your existing vertex shader
+          }`,
       fragmentShader: `
       //    Simplex 3D Noise 
         //    by Ian McEwan, Stefan Gustavson (https://github.com/stegu/webgl-noise)
@@ -151,17 +153,19 @@ class FireMaterial extends THREE.ShaderMaterial {
             }
             col.a = col.r;
             gl_FragColor = col;
-          }`, // Keep your existing fragment shader
+          }`,
     });
   }
 }
 
 extend({ FireMaterial });
 
-function FireElement({ color, time, ...props }) {
+function FireElement({ color, time, withAudio = false, ...props }) {
   const meshRef = useRef();
   const materialRef = useRef();
+  const audioRef = useRef();
   const texture = useLoader(THREE.TextureLoader, "/images/fire.png");
+  const { isExperienceReady } = useExperienceStore();
 
   useLayoutEffect(() => {
     if (!materialRef.current) return;
@@ -187,10 +191,29 @@ function FireElement({ color, time, ...props }) {
     materialRef.current.uniforms.scale.value = meshRef.current.scale;
   }, [time]);
 
+  useEffect(() => {
+    if (audioRef.current && isExperienceReady) {
+      try {
+        audioRef.current.play();
+      } catch (error) {
+        console.error("Error playing audio:", error);
+      }
+    }
+  }, [isExperienceReady]);
+
   return (
     <mesh ref={meshRef} {...props} renderOrder={1}>
       <boxGeometry />
       <fireMaterial ref={materialRef} transparent depthWrite={false} />
+      {withAudio && (
+        <PositionalAudio
+          ref={audioRef}
+          url="/audio/sfx/torch.ogg"
+          distance={1}
+          maxDistance={1}
+          loop
+        />
+      )}
     </mesh>
   );
 }
@@ -198,7 +221,7 @@ function FireElement({ color, time, ...props }) {
 export default function Fire({ time, ...props }) {
   return (
     <group {...props}>
-      {/* Main Fires */}
+      {/* Braizer Fires */}
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
@@ -231,40 +254,47 @@ export default function Fire({ time, ...props }) {
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[9.1, 10.32, -18.4]}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[3.28, 10.32, -18.4]}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[5.69, 17.25, -15.49]}
+        withAudio={true}
       />
 
-      {/* Inside Torches */}
+      {/* Inside Torches with Positional Audio */}
       <FireElement
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[11.27, 8.62, -27.25]}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[1.4, 8.62, -27.15]}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[11.27, 8.62, -45.25]}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[1.4, 8.62, -45.15]}
+        withAudio={true}
       />
     </group>
   );
