@@ -22,50 +22,50 @@ const TreeSwayMaterial = forwardRef(({ time, ...props }, ref) => {
 
   const vertexShader = `
     uniform float time;
-uniform float swayAmount;
-uniform float swaySpeed;
-uniform float baseFrequency;
+    uniform float swayAmount;
+    uniform float swaySpeed;
+    uniform float baseFrequency;
 
-attribute float instanceScale;
+    attribute float instanceScale;
 
-varying vec2 vUv;
-varying float vHeight;
+    varying vec2 vUv;
+    varying float vHeight;
 
-void main() {
-  vUv = uv;
-  vHeight = position.y;
-  
-  // Normalized height (0 at base, 1 at top)
-  float normalizedHeight = position.y / 10.0; // Adjust divisor based on your tree height
-  
-  // Multi-frequency sway for more organic movement
-  float sway1 = sin(time * swaySpeed * 0.8 + position.x * baseFrequency) * 0.5;
-  float sway2 = cos(time * swaySpeed * 1.3 + position.z * baseFrequency * 1.7) * 0.3;
-  float sway3 = sin(time * swaySpeed * 0.5 + position.x * baseFrequency * 0.3) * 0.2;
-  
-  // Combine sway effects with more influence at the top
-  float combinedSway = (sway1 + sway2 + sway3) * swayAmount;
-  float trunkStiffness = 1.0 - smoothstep(0.0, 0.3, normalizedHeight); // Stiffer at base
-  
-  // Apply sway with height influence and trunk stiffness
-  vec3 swayedPosition = position;
-  swayedPosition.x += combinedSway * 0.3 * normalizedHeight * (1.0 - trunkStiffness);
-  swayedPosition.z += combinedSway * 0.4 * normalizedHeight * (1.0 - trunkStiffness);
-  
-  // Add slight vertical movement for leaf flutter
-  swayedPosition.y += sin(time * swaySpeed * 2.0 + position.x) * 0.02 * normalizedHeight;
-  
-  // Wind direction variation
-  float windDirection = sin(time * 0.1) * 0.5 + 0.5;
-  swayedPosition.xz += windDirection * combinedSway * 0.1 * normalizedHeight;
-  
-  // Transform the position
-  vec4 modelPosition = instanceMatrix * vec4(swayedPosition, 1.0);
-  vec4 viewPosition = viewMatrix * modelPosition;
-  vec4 projectedPosition = projectionMatrix * viewPosition;
-  
-  gl_Position = projectedPosition;
-}
+    void main() {
+      vUv = uv;
+      vHeight = position.y;
+      
+      // Normalized height (0 at base, 1 at top)
+      float normalizedHeight = position.y / 10.0; // Adjust divisor based on your tree height
+      
+      // Multi-frequency sway for more organic movement
+      float sway1 = sin(time * swaySpeed * 0.8 + position.x * baseFrequency) * 0.5;
+      float sway2 = cos(time * swaySpeed * 1.3 + position.z * baseFrequency * 1.7) * 0.3;
+      float sway3 = sin(time * swaySpeed * 0.5 + position.x * baseFrequency * 0.3) * 0.2;
+      
+      // Combine sway effects with more influence at the top
+      float combinedSway = (sway1 + sway2 + sway3) * swayAmount;
+      float trunkStiffness = 1.0 - smoothstep(0.0, 0.3, normalizedHeight); // Stiffer at base
+      
+      // Apply sway with height influence and trunk stiffness
+      vec3 swayedPosition = position;
+      swayedPosition.x += combinedSway * 0.3 * normalizedHeight * (1.0 - trunkStiffness);
+      swayedPosition.z += combinedSway * 0.4 * normalizedHeight * (1.0 - trunkStiffness);
+      
+      // Add slight vertical movement for leaf flutter
+      swayedPosition.y += sin(time * swaySpeed * 2.0 + position.x) * 0.02 * normalizedHeight;
+      
+      // Wind direction variation
+      float windDirection = sin(time * 0.1) * 0.5 + 0.5;
+      swayedPosition.xz += windDirection * combinedSway * 0.1 * normalizedHeight;
+      
+      // Transform the position
+      vec4 modelPosition = instanceMatrix * vec4(swayedPosition, 1.0);
+      vec4 viewPosition = viewMatrix * modelPosition;
+      vec4 projectedPosition = projectionMatrix * viewPosition;
+      
+      gl_Position = projectedPosition;
+    }
   `;
 
   const fragmentShader = `

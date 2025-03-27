@@ -22,7 +22,8 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
   const pulsingMaterial = newMaterials["Ninth_Final_Baked"].clone();
 
   const getMaterial = (elementID, progressRange) => {
-    if (hoveredMesh === elementID) return brightHoveredMaterial;
+    if (hoveredMesh === elementID && progress >= 0.399 && progress <= 0.6)
+      return brightHoveredMaterial;
 
     const [min, max] = progressRange;
     if (progress >= min && progress <= max) {
@@ -34,7 +35,8 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
   };
 
   useEffect(() => {
-    document.body.style.cursor = hoveredMesh ? "pointer" : "auto";
+    if (progress >= 0.399 && progress <= 0.6)
+      document.body.style.cursor = hoveredMesh ? "pointer" : "auto";
   }, [hoveredMesh]);
 
   return (

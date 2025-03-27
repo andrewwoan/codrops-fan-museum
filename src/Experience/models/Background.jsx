@@ -13,7 +13,7 @@ export default function Model(props) {
   const newMaterials = convertMaterialsToBasic(materials);
   return (
     <Instances
-      limit={3}
+      limit={4}
       geometry={nodes.background.geometry}
       material={newMaterials.background}
       {...props}
@@ -25,11 +25,23 @@ export default function Model(props) {
         scale={205.189}
       />
 
+      <Instance
+        position={[-170.311, 44.468, -54.652]}
+        rotation={[Math.PI / 2, 0, -1.765]}
+        scale={205.189}
+      />
+
       {/* Second instance */}
       <Instance
-        position={[190.311, 30.468, -114.652]}
+        position={[190.311, 28.468, -114.652]}
         rotation={[Math.PI / 2, 0, 0.5]}
-        scale={200}
+        scale={211}
+      />
+
+      <Instance
+        position={[220.311, -42.468, -90.652]}
+        rotation={[Math.PI / 2, 0, 0.2]}
+        scale={145}
       />
     </Instances>
   );
