@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from "react";
-import gsap from "gsap";
 import Scene from "./Scene";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
