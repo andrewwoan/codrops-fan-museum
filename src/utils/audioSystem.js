@@ -1,27 +1,24 @@
-// utils/audioSystem.js
 import { Howl, Howler } from "howler";
 
-// Create sound instances
 const sounds = {
   backgroundMusic: new Howl({
     src: ["/audio/music/background_music.ogg"],
     loop: true,
-    volume: 0.7,
+    volume: 0.8,
   }),
   backgroundAmbience: new Howl({
     src: ["/audio/sfx/background_ambience.ogg"],
     loop: true,
-    volume: 0.8,
+    volume: 0.9,
   }),
 
   thumpHover: new Howl({
     src: ["/audio/sfx/thump_hover.ogg"],
     loop: false,
-    volume: 1.0,
+    volume: 1.1,
   }),
 };
 
-// Audio control functions
 export const playSound = (soundId) => {
   sounds[soundId]?.play();
 };
