@@ -7,7 +7,7 @@ export const modalContent = {
     paragraphs: [
       "Codrops is a web design and development blog that publishes articles and tutorials about the latest web trends, techniques and new possibilities.",
       "The platform offers a wide range of resources including interactive demos, experiments, and downloadable assets that help designers and developers stay updated with modern web development practices.",
-      "Codrops is particularly known for its innovative CSS and JavaScript tutorials that push the boundaries of what's possible on the web.",
+      "Codrops is widely known for its collective and creation of resources that push the boundaries of what's possible on the web.",
     ],
   },
   csstricks: {
@@ -28,8 +28,8 @@ export const modalContent = {
     paragraphs: [
       "Three.js Journey is a comprehensive course created by Bruno Simon that teaches how to create 3D websites with Three.js from beginner to advanced levels.",
       "The course covers essential concepts like setting up a Three.js scene, creating geometries, materials, textures, lighting, and animation techniques.",
-      "It also explores more advanced topics like physics, particles, raycasting, and performance optimization.",
-      "Three.js Journey has become one of the most recommended resources for learning 3D web development with practical, project-based lessons.",
+      "It also explores more advanced topics like physics, particles, shaders, and performance optimization.",
+      "Three.js Journey has become one of the most if not most recommended resources for learning 3D web development with practical, project-based lessons.",
     ],
   },
   blender: {
@@ -39,9 +39,7 @@ export const modalContent = {
     paragraphs: [
       "Blender is a free and open-source 3D creation suite that supports the entirety of the 3D pipeline—modeling, rigging, animation, simulation, rendering, and more.",
       "It's widely used by indie game developers, animators, and 3D artists around the world due to its powerful features and accessibility.",
-      "Blender has seen significant development in recent years, with major updates improving its user interface and adding features like real-time rendering with Eevee.",
-      "The software is cross-platform and runs on Windows, macOS, and Linux, making it accessible to creators regardless of their operating system.",
-      "Blender's community-driven development model means it's constantly evolving with new features and improvements.",
+      "Blender has seen significant development in recent years, with major updates improving its user interface and adding features like ray tracing with Eevee.",
     ],
   },
   threejs: {
