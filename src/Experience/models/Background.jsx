@@ -26,7 +26,7 @@ export default function Model(props) {
       <Instance
         position={[-170.311, 66.468, -124.652]}
         rotation={[Math.PI / 2, 0, -0.765]}
-        scale={205.189}
+        scale={210.189}
       />
 
       <Instance

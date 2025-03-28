@@ -131,8 +131,8 @@ export default function WaterfallModel({
         ref={meshRef}
         geometry={nodes.Waterfall.geometry}
         material={waterfallMaterial}
-        position={[32.444, 69.171, -73.738]}
-        rotation={[Math.PI, -1.514, Math.PI]}
+        position={[32.444, 68.9, -73.738]}
+        rotation={[Math.PI, -1.45, Math.PI]}
       >
         <primitive
           object={waterfallMaterial}
