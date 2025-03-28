@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { useLayoutEffect, useRef, useEffect } from "react";
 import { extend, useFrame, useLoader } from "@react-three/fiber";
 import { PositionalAudio } from "@react-three/drei";
-import { useExperienceStore } from "../../utils/experienceStore";
+import { useExperienceStore } from "../../stores/experienceStore";
 
 class FireMaterial extends THREE.ShaderMaterial {
   constructor() {

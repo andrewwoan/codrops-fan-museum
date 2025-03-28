@@ -5,7 +5,7 @@ import "./LoadingScreen.scss";
 import { useProgress } from "@react-three/drei";
 
 import { playBackgroundMusic, playSound } from "../../utils/audioSystem.js";
-import { useExperienceStore } from "../../utils/experienceStore.js";
+import { useExperienceStore } from "../../stores/experienceStore.js";
 
 const LoadingScreen = () => {
   const { progress } = useProgress();
