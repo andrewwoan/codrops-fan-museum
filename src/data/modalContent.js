@@ -1,4 +1,3 @@
-// modalContent.js
 export const modalContent = {
   codrops: {
     title: "Codrops",
