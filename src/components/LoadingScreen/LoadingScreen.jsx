@@ -18,6 +18,7 @@ const LoadingScreen = () => {
     setIsRevealed(true);
     playBackgroundMusic();
     playSound("backgroundAmbience");
+    playSound("thumpHover");
     setIsExperienceReady();
   };
 
@@ -43,7 +44,7 @@ const LoadingScreen = () => {
           <div
             className={`instructions-container ${isRevealed ? "revealed" : ""}`}
           >
-            Drag/Scroll Up/Down to Navigate
+            Slowly Drag or Scroll to Navigate
           </div>
           {progress < 100 ? (
             <div className="loading-bar-container">
@@ -54,7 +55,7 @@ const LoadingScreen = () => {
               <div className="percentage">{Math.round(progress)}%</div>
             </div>
           ) : !isRevealed ? (
-            <button onClick={handleReveal}>
+            <button className="loading-screen-button" onClick={handleReveal}>
               &nbsp; &nbsp; &nbsp; Enter World &nbsp; &nbsp; &nbsp;
             </button>
           ) : null}

@@ -226,26 +226,31 @@ export default function Fire({ time, ...props }) {
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[-13.1, 9.52, -14.4]}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[-9.29, 9.52, -14.4]}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[21.279, 9.52, -14.4]}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[25, 9.52, -14.4]}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[28.789, 9.52, -14.4]}
+        withAudio={true}
       />
 
       {/* Outside Torches */}
