@@ -2,14 +2,10 @@ import React, { useRef, useEffect, useState } from "react";
 import Scene from "./Scene";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
-
-import {
-  PerspectiveCamera,
-  CameraControls,
-  OrbitControls,
-} from "@react-three/drei";
+import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
 import { useModalStore } from "../stores/useModalStore";
 import normalizeWheel from "normalize-wheel";
+import { useExperienceStore } from "../utils/experienceStore";
 
 const Experience = () => {
   const camera = useRef();
@@ -23,8 +19,11 @@ const Experience = () => {
   const mouseRotationOffset = useRef(new THREE.Euler());
   const { isModalOpen } = useModalStore();
   const lastTouchY = useRef(null);
+  const { isExperienceReady } = useExperienceStore();
 
   useEffect(() => {
+    if (!isExperienceReady) return;
+
     const handleWheel = (e) => {
       if (isModalOpen) return;
       const normalized = normalizeWheel(e);
@@ -110,7 +109,7 @@ const Experience = () => {
       window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [isModalOpen]);
+  }, [isModalOpen, isExperienceReady]);
 
   return (
     <>

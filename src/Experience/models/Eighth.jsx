@@ -75,7 +75,9 @@ const TreeSwayMaterial = forwardRef(({ time, ...props }, ref) => {
     void main() {
       // Use the texture with original colors
       vec4 texColor = texture2D(map, vUv);
-        if (texColor.a < 0.1) discard;
+
+      // Discard transparency pixels below threshold
+      if (texColor.a < 0.1) discard;
 
       gl_FragColor = texColor;
     }

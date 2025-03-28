@@ -78,6 +78,7 @@ const Scene = ({
       const newPulseIntensity = (Math.sin(state.clock.elapsedTime * 3) + 1) / 2;
       setPulseIntensity(newPulseIntensity);
 
+      // Lerp to new position
       let newProgress = THREE.MathUtils.lerp(
         scrollProgress,
         targetScrollProgress.current,
@@ -94,6 +95,7 @@ const Scene = ({
 
       setscrollProgress(newProgress);
 
+      // Lerp to new camera offset position
       const basePoint = cameraCurve.getPoint(newProgress);
 
       cameraGroup.current.position.x = THREE.MathUtils.lerp(
