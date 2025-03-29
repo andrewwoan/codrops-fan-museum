@@ -13,6 +13,7 @@ export default function Model(props) {
     () => convertMaterialsToBasic(materials),
     [materials]
   );
+
   return (
     <group {...props} dispose={null}>
       <mesh

@@ -25,6 +25,7 @@ import {
 } from "./utils/curve";
 import Fire from "./components/Fire";
 import WaterFall from "./components/WaterFall";
+import { useExperienceStore } from "../stores/experienceStore";
 
 const Scene = ({
   cameraGroup,
@@ -41,6 +42,7 @@ const Scene = ({
     new THREE.Euler().copy(rotationTargets[0].rotation)
   );
   const timeRef = useRef(0);
+  const { isExperienceReady } = useExperienceStore();
 
   const getLerpedRotation = (progress) => {
     for (let i = 0; i < rotationTargets.length - 1; i++) {
@@ -73,6 +75,9 @@ const Scene = ({
   };
 
   useFrame((state) => {
+    // Potentially save on overloading
+    if (!isExperienceReady) return;
+
     if (camera) {
       timeRef.current = state.clock.getElapsedTime();
       const newPulseIntensity = (Math.sin(state.clock.elapsedTime * 3) + 1) / 2;

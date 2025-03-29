@@ -116,12 +116,7 @@ const Experience = () => {
     <>
       <Canvas eventSource={document.getElementById("root")}>
         <group ref={cameraGroup}>
-          <PerspectiveCamera
-            ref={camera}
-            fov={72}
-            makeDefault
-            position={[0, 10, 0]}
-          />
+          <PerspectiveCamera ref={camera} fov={72} makeDefault />
         </group>
         {/* <OrbitControls camera={camera.current} enableZoom={false} /> */}
         <Scene
