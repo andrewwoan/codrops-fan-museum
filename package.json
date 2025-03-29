@@ -16,6 +16,7 @@
     "gsap": "^3.12.7",
     "howler": "^2.2.4",
     "normalize-wheel": "^1.0.1",
+    "r3f-perf": "^7.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.2.0",

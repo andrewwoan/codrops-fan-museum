@@ -6,6 +6,7 @@ import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
 import { useModalStore } from "../stores/useModalStore";
 import normalizeWheel from "normalize-wheel";
 import { useExperienceStore } from "../stores/experienceStore";
+import { PerformanceMonitor } from "@react-three/drei";
 
 const Experience = () => {
   const camera = useRef();
