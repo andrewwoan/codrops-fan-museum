@@ -21,12 +21,13 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
   );
 
   const derivedMaterials = useMemo(() => {
-    const baseMaterial = newMaterials["Ninth_Final_Baked"].clone();
+    const baseMaterial = newMaterials["Ninth_real_actual_Baked"].clone();
 
-    const brightHoveredMaterial = newMaterials["Ninth_Final_Baked"].clone();
+    const brightHoveredMaterial =
+      newMaterials["Ninth_real_actual_Baked"].clone();
     brightHoveredMaterial.color = new THREE.Color(2.5, 2.5, 2.5);
 
-    const pulsingMaterial = newMaterials["Ninth_Final_Baked"].clone();
+    const pulsingMaterial = newMaterials["Ninth_real_actual_Baked"].clone();
 
     return {
       baseMaterial,
@@ -91,36 +92,36 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
   const meshes = useMemo(
     () => [
       {
-        id: "codrops",
-        geometry: nodes.Ninth_Codrops_Baked.geometry,
+        id: "demoshub",
+        geometry: nodes.Ninth_DemosHub_Baked.geometry,
         progressRange: [0.399, 0.6],
         position: [6.136, 9.285, -48.469],
         rotation: [Math.PI / 2, 0, 0],
       },
       {
-        id: "csstricks",
-        geometry: nodes.Ninth_CSSTricks_Baked.geometry,
+        id: "thecollective",
+        geometry: nodes.Ninth_TheCollective_Baked.geometry,
         progressRange: [0.399, 0.6],
         position: [-0.457, 9.285, -48.469],
         rotation: [Math.PI / 2, 0, 0],
       },
       {
-        id: "threejsjourney",
-        geometry: nodes.Ninth_ThreejsJourney_Baked.geometry,
+        id: "webzibition",
+        geometry: nodes.Ninth_Webzibition_Baked.geometry,
         progressRange: [0.399, 0.6],
         position: [2.778, 9.285, -48.469],
         rotation: [Math.PI / 2, 0, 0],
       },
       {
-        id: "blender",
-        geometry: nodes.Ninth_Blender_Baked.geometry,
+        id: "developerspotlight",
+        geometry: nodes.Ninth_DeveloperSpotlight_Baked.geometry,
         progressRange: [0.399, 0.6],
         position: [12.806, 9.285, -48.469],
         rotation: [Math.PI / 2, 0, 0],
       },
       {
-        id: "threejs",
-        geometry: nodes.Ninth_Threejs_Baked.geometry,
+        id: "designerspotlight",
+        geometry: nodes.Ninth_DesignerSpotlight_Baked.geometry,
         progressRange: [0.399, 0.6],
         position: [9.538, 9.285, -48.469],
         rotation: [Math.PI / 2, 0, 0],
@@ -145,7 +146,7 @@ export default function Model({ progress = 0, pulseIntensity = 0, ...props }) {
       ))}
       <mesh
         geometry={nodes.Ninth_Paper_Baked.geometry}
-        material={newMaterials["Ninth_Final_Baked"]}
+        material={newMaterials["Ninth_real_actual_Baked"]}
         position={[6.122, 6.808, -35.966]}
       />
     </group>

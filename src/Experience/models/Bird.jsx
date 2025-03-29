@@ -3,7 +3,6 @@ import { useGraph, useFrame } from "@react-three/fiber";
 import { SkeletonUtils } from "three-stdlib";
 import { useGLTFWithKTX2 } from "../utils/useGLTFWithKTX2";
 import { useAnimations } from "@react-three/drei";
-import * as THREE from "three";
 
 import { convertMaterialsToBasic } from "../utils/convertToBasic";
 import { createBirdPath, getBirdPosition } from "../utils/birdPath";

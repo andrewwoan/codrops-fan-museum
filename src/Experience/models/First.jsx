@@ -4,7 +4,6 @@ Command: npx gltfjsx@6.5.3 First.glb
 */
 
 import React, { useMemo } from "react";
-import { useGLTF } from "@react-three/drei";
 import { useGLTFWithKTX2 } from "../utils/useGLTFWithKTX2";
 import { convertMaterialsToBasic } from "../utils/convertToBasic";
 

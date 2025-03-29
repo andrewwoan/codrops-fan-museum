@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { useRef, useEffect, useMemo } from "react";
-import { useFrame } from "@react-three/fiber";
 import { useGLTF, useTexture } from "@react-three/drei";
 
 export default function WaterfallModel({

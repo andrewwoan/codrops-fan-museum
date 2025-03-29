@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { useLayoutEffect, useRef, useEffect } from "react";
-import { extend, useFrame, useLoader } from "@react-three/fiber";
+import { extend, useLoader } from "@react-three/fiber";
 import { PositionalAudio } from "@react-three/drei";
 import { useExperienceStore } from "../../stores/experienceStore";
 
