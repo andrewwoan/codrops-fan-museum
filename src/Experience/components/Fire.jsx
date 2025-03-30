@@ -1,13 +1,8 @@
 import * as THREE from "three";
-import { useLayoutEffect, useRef, useEffect } from "react";
+import { useLayoutEffect, useRef, useEffect, useState } from "react";
 import { extend, useLoader } from "@react-three/fiber";
 import { PositionalAudio } from "@react-three/drei";
 import { useExperienceStore } from "../../stores/experienceStore";
-
-// Helper function to detect iOS mobile devices
-const isIOSMobile = () => {
-  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-};
 
 class FireMaterial extends THREE.ShaderMaterial {
   constructor() {
@@ -93,7 +88,7 @@ class FireMaterial extends THREE.ShaderMaterial {
             vec3 p3 = vec3(a1.zw,h.w);
 
             //Normalise gradients
-            vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3));
+            vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
             p0 *= norm.x;
             p1 *= norm.y;
             p2 *= norm.z;
@@ -165,15 +160,31 @@ class FireMaterial extends THREE.ShaderMaterial {
 
 extend({ FireMaterial });
 
+// Custom hook to detect iOS
+function useIsIOS() {
+  const [isIOS, setIsIOS] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && typeof navigator !== "undefined") {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const isIOSDevice =
+        /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+      setIsIOS(isIOSDevice);
+    }
+  }, []);
+
+  return isIOS;
+}
+
 function FireElement({ color, time, withAudio = false, ...props }) {
   const meshRef = useRef();
   const materialRef = useRef();
   const audioRef = useRef();
   const texture = useLoader(THREE.TextureLoader, "/images/fire.png");
   const { isExperienceReady } = useExperienceStore();
+  const isIOS = useIsIOS();
 
-  // Disable audio if on iOS mobile
-  const shouldUseAudio = withAudio && !isIOSMobile();
+  const shouldPlayAudio = withAudio && !isIOS;
 
   useLayoutEffect(() => {
     if (!materialRef.current) return;
@@ -200,20 +211,20 @@ function FireElement({ color, time, withAudio = false, ...props }) {
   }, [time]);
 
   useEffect(() => {
-    if (audioRef.current && isExperienceReady && shouldUseAudio) {
+    if (audioRef.current && isExperienceReady && shouldPlayAudio) {
       try {
         audioRef.current.play();
       } catch (error) {
         console.error("Error playing audio:", error);
       }
     }
-  }, [isExperienceReady, shouldUseAudio]);
+  }, [isExperienceReady, shouldPlayAudio]);
 
   return (
     <mesh ref={meshRef} {...props} renderOrder={1}>
       <boxGeometry />
       <fireMaterial ref={materialRef} transparent depthWrite={false} />
-      {shouldUseAudio && (
+      {shouldPlayAudio && (
         <PositionalAudio
           ref={audioRef}
           url="/audio/sfx/torch.ogg"
