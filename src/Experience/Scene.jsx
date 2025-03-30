@@ -72,6 +72,11 @@ const Scene = ({
     new THREE.Euler().copy(rotationTargets[0].rotation)
   );
   const timeRef = useRef(0);
+  const [shouldRenderBackground, setShouldRenderBackground] = useState(true);
+
+  useEffect(() => {
+    setShouldRenderBackground(window.innerWidth >= 764);
+  }, []);
 
   const { shouldRenderChunk } = useChunkedLoading();
 
@@ -211,7 +216,7 @@ const Scene = ({
       <Suspense fallback={null}>
         <First />
         <Second />
-        <Background />
+        {shouldRenderBackground && <Background />}
       </Suspense>
 
       {shouldRenderChunk(1) && (
