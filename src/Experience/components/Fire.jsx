@@ -191,15 +191,15 @@ function FireElement({ color, time, withAudio = false, ...props }) {
     materialRef.current.uniforms.scale.value = meshRef.current.scale;
   }, [time]);
 
-  useEffect(() => {
-    if (audioRef.current && isExperienceReady) {
-      try {
-        audioRef.current.play();
-      } catch (error) {
-        console.error("Error playing audio:", error);
-      }
-    }
-  }, [isExperienceReady]);
+  // useEffect(() => {
+  //   if (audioRef.current && isExperienceReady) {
+  //     try {
+  //       audioRef.current.play();
+  //     } catch (error) {
+  //       console.error("Error playing audio:", error);
+  //     }
+  //   }
+  // }, [isExperienceReady]);
 
   return (
     <mesh ref={meshRef} {...props} renderOrder={1}>
@@ -212,6 +212,7 @@ function FireElement({ color, time, withAudio = false, ...props }) {
           distance={1}
           maxDistance={1}
           loop
+          autoplay
         />
       )}
     </mesh>
