@@ -4,6 +4,11 @@ import { extend, useLoader } from "@react-three/fiber";
 import { PositionalAudio } from "@react-three/drei";
 import { useExperienceStore } from "../../stores/experienceStore";
 
+// Helper function to detect iOS mobile devices
+const isIOSMobile = () => {
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+};
+
 class FireMaterial extends THREE.ShaderMaterial {
   constructor() {
     super({
@@ -88,7 +93,7 @@ class FireMaterial extends THREE.ShaderMaterial {
             vec3 p3 = vec3(a1.zw,h.w);
 
             //Normalise gradients
-            vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+            vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3));
             p0 *= norm.x;
             p1 *= norm.y;
             p2 *= norm.z;
@@ -167,6 +172,9 @@ function FireElement({ color, time, withAudio = false, ...props }) {
   const texture = useLoader(THREE.TextureLoader, "/images/fire.png");
   const { isExperienceReady } = useExperienceStore();
 
+  // Disable audio if on iOS mobile
+  const shouldUseAudio = withAudio && !isIOSMobile();
+
   useLayoutEffect(() => {
     if (!materialRef.current) return;
 
@@ -191,28 +199,27 @@ function FireElement({ color, time, withAudio = false, ...props }) {
     materialRef.current.uniforms.scale.value = meshRef.current.scale;
   }, [time]);
 
-  // useEffect(() => {
-  //   if (audioRef.current && isExperienceReady) {
-  //     try {
-  //       audioRef.current.play();
-  //     } catch (error) {
-  //       console.error("Error playing audio:", error);
-  //     }
-  //   }
-  // }, [isExperienceReady]);
+  useEffect(() => {
+    if (audioRef.current && isExperienceReady && shouldUseAudio) {
+      try {
+        audioRef.current.play();
+      } catch (error) {
+        console.error("Error playing audio:", error);
+      }
+    }
+  }, [isExperienceReady, shouldUseAudio]);
 
   return (
     <mesh ref={meshRef} {...props} renderOrder={1}>
       <boxGeometry />
       <fireMaterial ref={materialRef} transparent depthWrite={false} />
-      {withAudio && (
+      {shouldUseAudio && (
         <PositionalAudio
           ref={audioRef}
           url="/audio/sfx/torch.ogg"
           distance={1}
           maxDistance={1}
           loop
-          autoplay
         />
       )}
     </mesh>
@@ -227,31 +234,31 @@ export default function Fire({ time, ...props }) {
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[-13.1, 9.52, -14.4]}
-        withAudio={false}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[-9.29, 9.52, -14.4]}
-        withAudio={false}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[21.279, 9.52, -14.4]}
-        withAudio={false}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[25, 9.52, -14.4]}
-        withAudio={false}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[28.789, 9.52, -14.4]}
-        withAudio={false}
+        withAudio={true}
       />
 
       {/* Outside Torches */}
@@ -260,21 +267,21 @@ export default function Fire({ time, ...props }) {
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[9.1, 10.32, -18.4]}
-        withAudio={false}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[3.28, 10.32, -18.4]}
-        withAudio={false}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[5.69, 17.25, -15.49]}
-        withAudio={false}
+        withAudio={true}
       />
 
       {/* Inside Torches with Positional Audio */}
@@ -282,19 +289,19 @@ export default function Fire({ time, ...props }) {
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[11.27, 8.62, -27.25]}
-        withAudio={false}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[1.4, 8.62, -27.15]}
-        withAudio={false}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[11.27, 8.62, -45.25]}
-        withAudio={false}
+        withAudio={true}
       />
       <FireElement
         time={time}
