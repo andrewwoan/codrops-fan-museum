@@ -35,7 +35,7 @@ const TreeSwayMaterial = forwardRef(({ time, ...props }, ref) => {
       vHeight = position.y;
       
       // Normalized height (0 at base, 1 at top)
-      float normalizedHeight = position.y / 10.0; // Adjust divisor based on your tree height
+      float normalizedHeight = position.y / 10.0; // Divisor based on tree height, but honestly doesn't really matter too much
       
       // Multi-frequency sway for more organic movement
       float sway1 = sin(time * swaySpeed * 0.8 + position.x * baseFrequency) * 0.5;

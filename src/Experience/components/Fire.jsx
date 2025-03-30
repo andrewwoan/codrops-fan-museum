@@ -3,6 +3,7 @@ import { useLayoutEffect, useRef, useEffect, useState } from "react";
 import { extend, useLoader } from "@react-three/fiber";
 import { PositionalAudio } from "@react-three/drei";
 import { useExperienceStore } from "../../stores/experienceStore";
+import { getAudioFileExtension } from "../../utils/platformDetector";
 
 class FireMaterial extends THREE.ShaderMaterial {
   constructor() {
@@ -167,17 +168,6 @@ function FireElement({ color, time, withAudio = false, ...props }) {
   const texture = useLoader(THREE.TextureLoader, "/images/fire.png");
   const { isExperienceReady } = useExperienceStore();
 
-  const isApplePlatform =
-    typeof navigator !== "undefined" &&
-    (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
-      (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1) ||
-      (/Mac/.test(navigator.userAgent) &&
-        !/iPad|iPhone|iPod/.test(navigator.userAgent)));
-
-  const audioFile = isApplePlatform
-    ? "/audio/sfx/torch.mp3"
-    : "/audio/sfx/torch.ogg";
-
   useLayoutEffect(() => {
     if (!materialRef.current) return;
 
@@ -219,7 +209,7 @@ function FireElement({ color, time, withAudio = false, ...props }) {
       {withAudio && (
         <PositionalAudio
           ref={audioRef}
-          url={audioFile}
+          url={`audio/sfx/torch.${getAudioFileExtension()}`}
           distance={1}
           maxDistance={1}
           loop

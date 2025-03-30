@@ -1,27 +1,19 @@
 import { Howl, Howler } from "howler";
-
-const isApplePlatform =
-  typeof navigator !== "undefined" &&
-  (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
-    (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1) ||
-    (/Mac/.test(navigator.userAgent) &&
-      !/iPad|iPhone|iPod/.test(navigator.userAgent)));
-
-const getFileExtension = () => (isApplePlatform ? "mp3" : "ogg");
+import { getAudioFileExtension } from "./platformDetector";
 
 const sounds = {
   backgroundMusic: new Howl({
-    src: [`/audio/music/background_music.${getFileExtension()}`],
+    src: [`/audio/music/background_music.${getAudioFileExtension()}`],
     loop: true,
     volume: 0.8,
   }),
   backgroundAmbience: new Howl({
-    src: [`/audio/sfx/background_ambience.${getFileExtension()}`],
+    src: [`/audio/sfx/background_ambience.${getAudioFileExtension()}`],
     loop: true,
     volume: 0.9,
   }),
   thumpHover: new Howl({
-    src: [`/audio/sfx/thump_hover.${getFileExtension()}`],
+    src: [`/audio/sfx/thump_hover.${getAudioFileExtension()}`],
     loop: false,
     volume: 1.1,
   }),
