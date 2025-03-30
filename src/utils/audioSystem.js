@@ -1,23 +1,23 @@
 import { Howl, Howler } from "howler";
-import { getAudioFileExtension } from "./platformDetector";
+import { isApplePlatform, getAudioFileExtension } from "./platformDetector";
 
 const sounds = {
   backgroundMusic: new Howl({
     src: [`/audio/music/background_music.${getAudioFileExtension()}`],
     loop: true,
-    html5: true,
+    html5: isApplePlatform(),
     volume: 0.8,
   }),
   backgroundAmbience: new Howl({
     src: [`/audio/sfx/background_ambience.${getAudioFileExtension()}`],
     loop: true,
-    html5: true,
+    html5: isApplePlatform(),
     volume: 0.9,
   }),
   thumpHover: new Howl({
     src: [`/audio/sfx/thump_hover.${getAudioFileExtension()}`],
     loop: false,
-    html5: true,
+    html5: isApplePlatform(),
     volume: 1,
   }),
 };
