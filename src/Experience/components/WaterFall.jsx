@@ -82,42 +82,42 @@ export default function WaterfallModel({
       }
     `,
     fragmentShader: `
-    uniform float time;
-    uniform sampler2D map;
-    uniform float textureAspect;
-    uniform float repeatY;
-    uniform float edgeFade;
-    uniform vec3 tintColor;
-    uniform float tintIntensity;
-    varying vec2 vUv;
-    varying float vWidthFactor;
-    
-    void main() {
-      vec2 uv = vUv;
-      uv.x = (uv.x - 0.5) / textureAspect + 0.5;
+      uniform float time;
+      uniform sampler2D map;
+      uniform float textureAspect;
+      uniform float repeatY;
+      uniform float edgeFade;
+      uniform vec3 tintColor;
+      uniform float tintIntensity;
+      varying vec2 vUv;
+      varying float vWidthFactor;
       
-      // Scrolling effect with mirroring
-      float scroll = time * ${speed};
-      float phase = -uv.y * repeatY + scroll;
-      float wrapped = mod(phase, 2.0);
-      uv.y = (wrapped > 1.0) ? 2.0 - wrapped : wrapped;
-      
-      // Sample texture
-      vec4 color = texture2D(map, uv);
-      
-      // Edge fading based on actual mesh width
-      float fade = smoothstep(0.0, edgeFade, vWidthFactor) * 
-                  (1.0 - smoothstep(1.0 - edgeFade, 1.0, vWidthFactor));
-      
-      // Apply fading
-      color.a *= fade;
-      
-      // Apply color tint (preserve original color while adding tint)
-      vec3 tintedColor = mix(color.rgb, color.rgb * tintColor, tintIntensity);
-      color.rgb = tintedColor;
-      
-      gl_FragColor = color;
-    }
+      void main() {
+        vec2 uv = vUv;
+        uv.x = (uv.x - 0.5) / textureAspect + 0.5;
+        
+        // Scrolling effect with mirroring
+        float scroll = time * ${speed};
+        float phase = -uv.y * repeatY + scroll;
+        float wrapped = mod(phase, 2.0);
+        uv.y = (wrapped > 1.0) ? 2.0 - wrapped : wrapped;
+        
+        // Sample texture
+        vec4 color = texture2D(map, uv);
+        
+        // Edge fading based on mesh width
+        float fade = smoothstep(0.0, edgeFade, vWidthFactor) * 
+                    (1.0 - smoothstep(1.0 - edgeFade, 1.0, vWidthFactor));
+        
+        // Apply fading
+        color.a *= fade;
+        
+        // Add some tint to it to blend better
+        vec3 tintedColor = mix(color.rgb, color.rgb * tintColor, tintIntensity);
+        color.rgb = tintedColor;
+        
+        gl_FragColor = color;
+      }
   `,
     transparent: true,
     side: THREE.DoubleSide,

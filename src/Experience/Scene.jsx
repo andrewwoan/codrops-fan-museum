@@ -72,11 +72,9 @@ const Scene = ({
     new THREE.Euler().copy(rotationTargets[0].rotation)
   );
   const timeRef = useRef(0);
-  const { isExperienceReady } = useExperienceStore();
 
   const { shouldRenderChunk } = useChunkedLoading();
 
-  // Regular rotation calculation
   const getLerpedRotation = (progress) => {
     for (let i = 0; i < rotationTargets.length - 1; i++) {
       const start = rotationTargets[i];

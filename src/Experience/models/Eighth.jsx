@@ -34,7 +34,7 @@ const TreeSwayMaterial = forwardRef(({ time, ...props }, ref) => {
       vUv = uv;
       vHeight = position.y;
       
-      // Normalized height (0 at base, 1 at top)
+      // Normalize the height for easier calculations (0 at base, 1 at top)
       float normalizedHeight = position.y / 10.0; // Divisor based on tree height, but honestly doesn't really matter too much
       
       // Multi-frequency sway for more organic movement
@@ -44,21 +44,21 @@ const TreeSwayMaterial = forwardRef(({ time, ...props }, ref) => {
       
       // Combine sway effects with more influence at the top
       float combinedSway = (sway1 + sway2 + sway3) * swayAmount;
-      float trunkStiffness = 1.0 - smoothstep(0.0, 0.3, normalizedHeight); // Stiffer at base
+      float trunkStiffness = 1.0 - smoothstep(0.0, 0.3, normalizedHeight); // More stiff at bottom of tree
       
       // Apply sway with height influence and trunk stiffness
       vec3 swayedPosition = position;
       swayedPosition.x += combinedSway * 0.3 * normalizedHeight * (1.0 - trunkStiffness);
       swayedPosition.z += combinedSway * 0.4 * normalizedHeight * (1.0 - trunkStiffness);
       
-      // Add slight vertical movement for leaf flutter
+      // Add a slight vertical movement for leaf flutter
       swayedPosition.y += sin(time * swaySpeed * 2.0 + position.x) * 0.02 * normalizedHeight;
       
-      // Wind direction variation
+      // Some wind direction for variation
       float windDirection = sin(time * 0.1) * 0.5 + 0.5;
       swayedPosition.xz += windDirection * combinedSway * 0.1 * normalizedHeight;
       
-      // Transform the position
+      // Adjust the position
       vec4 modelPosition = instanceMatrix * vec4(swayedPosition, 1.0);
       vec4 viewPosition = viewMatrix * modelPosition;
       vec4 projectedPosition = projectionMatrix * viewPosition;

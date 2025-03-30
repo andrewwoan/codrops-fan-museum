@@ -27,11 +27,10 @@ const LoadingScreen = () => {
           const step = Math.ceil((loadingProgress - prev) * 0.1);
           const newValue = prev + step;
 
-          // Check if we've reached/exceeded the target
           if (newValue >= loadingProgress) {
             const finalValue = Math.min(loadingProgress, 100);
             if (finalValue === 100) {
-              setHasCompletedAnimation(true); // Mark animation as complete
+              setHasCompletedAnimation(true);
             }
             return finalValue;
           }
