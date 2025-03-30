@@ -31,7 +31,6 @@ const LoadingManager = () => {
   const { setIsExperienceLoading } = useExperienceStore();
 
   useEffect(() => {
-    console.log(`Loading state: active=${active}, progress=${progress}`);
     setIsExperienceLoading(active);
   }, [active, progress, setIsExperienceLoading]);
 
@@ -46,7 +45,6 @@ const useChunkedLoading = () => {
 
   useEffect(() => {
     if (prevActiveRef.current && !active) {
-      console.log(`Chunk ${loadingStage} loaded, advancing to next chunk`);
       setLoadingStage((prev) => Math.min(prev + 1, totalChunks));
     }
 
@@ -77,7 +75,6 @@ const Scene = ({
   const timeRef = useRef(0);
   const { isExperienceReady } = useExperienceStore();
 
-  // Use our chunked loading hook
   const { shouldRenderChunk } = useChunkedLoading();
 
   // Regular rotation calculation
