@@ -5,11 +5,13 @@ const sounds = {
   backgroundMusic: new Howl({
     src: [`/audio/music/background_music.${getAudioFileExtension()}`],
     loop: true,
+    html5: true,
     volume: 0.8,
   }),
   backgroundAmbience: new Howl({
     src: [`/audio/sfx/background_ambience.${getAudioFileExtension()}`],
     loop: true,
+    html5: true,
     volume: 0.9,
   }),
   thumpHover: new Howl({
