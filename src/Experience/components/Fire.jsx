@@ -160,31 +160,12 @@ class FireMaterial extends THREE.ShaderMaterial {
 
 extend({ FireMaterial });
 
-// Custom hook to detect iOS
-function useIsIOS() {
-  const [isIOS, setIsIOS] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && typeof navigator !== "undefined") {
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      const isIOSDevice =
-        /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-      setIsIOS(isIOSDevice);
-    }
-  }, []);
-
-  return isIOS;
-}
-
 function FireElement({ color, time, withAudio = false, ...props }) {
   const meshRef = useRef();
   const materialRef = useRef();
   const audioRef = useRef();
   const texture = useLoader(THREE.TextureLoader, "/images/fire.png");
   const { isExperienceReady } = useExperienceStore();
-  const isIOS = useIsIOS();
-
-  const shouldPlayAudio = withAudio && !isIOS;
 
   useLayoutEffect(() => {
     if (!materialRef.current) return;
@@ -211,20 +192,20 @@ function FireElement({ color, time, withAudio = false, ...props }) {
   }, [time]);
 
   useEffect(() => {
-    if (audioRef.current && isExperienceReady && shouldPlayAudio) {
+    if (audioRef.current && isExperienceReady && withAudio) {
       try {
         audioRef.current.play();
       } catch (error) {
         console.error("Error playing audio:", error);
       }
     }
-  }, [isExperienceReady, shouldPlayAudio]);
+  }, [isExperienceReady, withAudio]);
 
   return (
     <mesh ref={meshRef} {...props} renderOrder={1}>
       <boxGeometry />
       <fireMaterial ref={materialRef} transparent depthWrite={false} />
-      {shouldPlayAudio && (
+      {withAudio && (
         <PositionalAudio
           ref={audioRef}
           url="/audio/sfx/torch.ogg"
@@ -238,6 +219,13 @@ function FireElement({ color, time, withAudio = false, ...props }) {
 }
 
 export default function Fire({ time, ...props }) {
+  const isIOS =
+    typeof navigator !== "undefined" &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent) &&
+    !window.MSStream;
+
+  const audioEnabled = !isIOS;
+
   return (
     <group {...props}>
       {/* Braizer Fires */}
@@ -245,31 +233,31 @@ export default function Fire({ time, ...props }) {
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[-13.1, 9.52, -14.4]}
-        withAudio={true}
+        withAudio={audioEnabled}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[-9.29, 9.52, -14.4]}
-        withAudio={true}
+        withAudio={audioEnabled}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[21.279, 9.52, -14.4]}
-        withAudio={true}
+        withAudio={audioEnabled}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[25, 9.52, -14.4]}
-        withAudio={true}
+        withAudio={audioEnabled}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[28.789, 9.52, -14.4]}
-        withAudio={true}
+        withAudio={audioEnabled}
       />
 
       {/* Outside Torches */}
@@ -278,21 +266,21 @@ export default function Fire({ time, ...props }) {
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[9.1, 10.32, -18.4]}
-        withAudio={true}
+        withAudio={audioEnabled}
       />
       <FireElement
         time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[3.28, 10.32, -18.4]}
-        withAudio={true}
+        withAudio={audioEnabled}
       />
       <FireElement
         time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[5.69, 17.25, -15.49]}
-        withAudio={true}
+        withAudio={audioEnabled}
       />
 
       {/* Inside Torches with Positional Audio */}
@@ -300,25 +288,25 @@ export default function Fire({ time, ...props }) {
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[11.27, 8.62, -27.25]}
-        withAudio={true}
+        withAudio={audioEnabled}
       />
       <FireElement
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[1.4, 8.62, -27.15]}
-        withAudio={true}
+        withAudio={audioEnabled}
       />
       <FireElement
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[11.27, 8.62, -45.25]}
-        withAudio={true}
+        withAudio={audioEnabled}
       />
       <FireElement
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[1.4, 8.62, -45.15]}
-        withAudio={true}
+        withAudio={audioEnabled}
       />
     </group>
   );
