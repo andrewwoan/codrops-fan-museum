@@ -109,8 +109,6 @@ const Scene = ({
   };
 
   useFrame((state) => {
-    if (!isExperienceReady) return;
-
     if (camera) {
       timeRef.current = state.clock.getElapsedTime();
       const newPulseIntensity = (Math.sin(state.clock.elapsedTime * 3) + 1) / 2;
