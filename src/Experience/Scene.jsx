@@ -211,6 +211,7 @@ const Scene = ({
       <Suspense fallback={null}>
         <First />
         <Second />
+        <Background />
       </Suspense>
 
       {shouldRenderChunk(1) && (
