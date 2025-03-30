@@ -238,9 +238,9 @@ const Scene = ({
           <Ninth progress={scrollProgress} pulseIntensity={pulseIntensity} />
           <Tenth />
           <Eleventh />
-          <Bird time={timeRef.current} position={[-20, 40, -45]} scale={0.02} />
+          {/* <Bird time={timeRef.current} position={[-20, 40, -45]} scale={0.02} />
           <Fire time={timeRef.current} />
-          <WaterFall time={timeRef.current} />
+          <WaterFall time={timeRef.current} /> */}
         </Suspense>
       )}
     </>
