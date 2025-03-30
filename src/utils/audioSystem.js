@@ -17,7 +17,8 @@ const sounds = {
   thumpHover: new Howl({
     src: [`/audio/sfx/thump_hover.${getAudioFileExtension()}`],
     loop: false,
-    volume: 1.1,
+    html5: true,
+    volume: 1,
   }),
 };
 
