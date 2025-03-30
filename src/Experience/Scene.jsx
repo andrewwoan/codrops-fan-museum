@@ -1,8 +1,7 @@
-import { React, Suspense, useState, useRef } from "react";
-
+import { React, Suspense, useState, useRef, useEffect } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
-import { Environment } from "@react-three/drei";
+import { Environment, useProgress } from "@react-three/drei";
 
 import First from "./models/First";
 import Second from "./models/Second";
@@ -27,6 +26,40 @@ import Fire from "./components/Fire";
 import WaterFall from "./components/WaterFall";
 import { useExperienceStore } from "../stores/experienceStore";
 
+const LoadingManager = () => {
+  const { active, progress } = useProgress();
+  const { setIsExperienceLoading } = useExperienceStore();
+
+  useEffect(() => {
+    console.log(`Loading state: active=${active}, progress=${progress}`);
+    setIsExperienceLoading(active);
+  }, [active, progress, setIsExperienceLoading]);
+
+  return null;
+};
+
+const useChunkedLoading = () => {
+  const [loadingStage, setLoadingStage] = useState(0);
+  const { active } = useProgress();
+  const prevActiveRef = useRef(true);
+  const totalChunks = 4;
+
+  useEffect(() => {
+    if (prevActiveRef.current && !active) {
+      console.log(`Chunk ${loadingStage} loaded, advancing to next chunk`);
+      setLoadingStage((prev) => Math.min(prev + 1, totalChunks));
+    }
+
+    prevActiveRef.current = active;
+  }, [active, loadingStage]);
+
+  return {
+    currentStage: loadingStage,
+    isLoadingComplete: loadingStage >= totalChunks,
+    shouldRenderChunk: (chunkIndex) => loadingStage >= chunkIndex,
+  };
+};
+
 const Scene = ({
   cameraGroup,
   camera,
@@ -44,6 +77,10 @@ const Scene = ({
   const timeRef = useRef(0);
   const { isExperienceReady } = useExperienceStore();
 
+  // Use our chunked loading hook
+  const { shouldRenderChunk } = useChunkedLoading();
+
+  // Regular rotation calculation
   const getLerpedRotation = (progress) => {
     for (let i = 0; i < rotationTargets.length - 1; i++) {
       const start = rotationTargets[i];
@@ -75,7 +112,6 @@ const Scene = ({
   };
 
   useFrame((state) => {
-    // Potentially save on overloading
     if (!isExperienceReady) return;
 
     if (camera) {
@@ -163,6 +199,8 @@ const Scene = ({
 
   return (
     <>
+      <LoadingManager />
+
       <Environment
         background={true}
         backgroundRotation={[0, Math.PI / 2, 0]}
@@ -181,20 +219,35 @@ const Scene = ({
       <Suspense fallback={null}>
         <First />
         <Second />
-        <Third />
-        <Fourth />
-        <Fifth />
-        <Sixth />
-        <Seventh />
-        <Eighth time={timeRef.current} />
-        <Ninth progress={scrollProgress} pulseIntensity={pulseIntensity} />
-        <Tenth />
-        <Eleventh />
-        <Bird time={timeRef.current} position={[-20, 40, -45]} scale={0.02} />
         <Background />
-        <Fire time={timeRef.current} />
-        <WaterFall time={timeRef.current} />
       </Suspense>
+
+      {shouldRenderChunk(1) && (
+        <Suspense fallback={null}>
+          <Third />
+          <Fourth />
+          <Fifth />
+        </Suspense>
+      )}
+
+      {shouldRenderChunk(2) && (
+        <Suspense fallback={null}>
+          <Sixth />
+          <Seventh />
+          <Eighth time={timeRef.current} />
+        </Suspense>
+      )}
+
+      {shouldRenderChunk(3) && (
+        <Suspense fallback={null}>
+          <Ninth progress={scrollProgress} pulseIntensity={pulseIntensity} />
+          <Tenth />
+          <Eleventh />
+          <Bird time={timeRef.current} position={[-20, 40, -45]} scale={0.02} />
+          <Fire time={timeRef.current} />
+          <WaterFall time={timeRef.current} />
+        </Suspense>
+      )}
     </>
   );
 };

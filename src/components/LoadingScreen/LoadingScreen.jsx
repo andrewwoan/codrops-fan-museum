@@ -1,9 +1,6 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import "./LoadingScreen.scss";
-
 import { useProgress } from "@react-three/drei";
-
 import { playBackgroundMusic, playSound } from "../../utils/audioSystem.js";
 import { useExperienceStore } from "../../stores/experienceStore.js";
 
@@ -11,8 +8,7 @@ const LoadingScreen = () => {
   const { progress } = useProgress();
   const [isRevealed, setIsRevealed] = useState(false);
   const [isAnimationFinished, setIsAnimationFinished] = useState(false);
-
-  const { setIsExperienceReady } = useExperienceStore();
+  const { setIsExperienceReady, isExperienceLoading } = useExperienceStore();
 
   const handleReveal = () => {
     setIsRevealed(true);
@@ -30,6 +26,9 @@ const LoadingScreen = () => {
     return null;
   }
 
+  const showEnterButton =
+    !isExperienceLoading && progress >= 100 && !isRevealed;
+
   return (
     <>
       <div className="loading-screen">
@@ -46,19 +45,24 @@ const LoadingScreen = () => {
           >
             Slowly Drag or Scroll to Navigate
           </div>
-          {progress < 100 ? (
+
+          {!isRevealed && !showEnterButton && (
             <div className="loading-bar-container">
               <div
                 className="loading-bar"
-                style={{ width: `${progress}%` }}
+                style={{ width: `${Math.min(progress, 100)}%` }}
               ></div>
-              <div className="percentage">{Math.round(progress)}%</div>
+              <div className="percentage">
+                {Math.round(Math.min(progress, 100))}%
+              </div>
             </div>
-          ) : !isRevealed ? (
+          )}
+
+          {showEnterButton && (
             <button className="loading-screen-button" onClick={handleReveal}>
               &nbsp; &nbsp; &nbsp; Enter World &nbsp; &nbsp; &nbsp;
             </button>
-          ) : null}
+          )}
         </div>
       </div>
     </>
