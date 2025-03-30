@@ -68,6 +68,8 @@ const LoadingScreen = () => {
   // Only show button if BOTH conditions are met:
   // 1. Loading is technically complete (loadedChunks >= totalChunks)
   // 2. The animation has visually reached 100%
+  // Without visual jump to 100 it'd show the enter button when it's done loading.
+  // I want it to go to 100 THEN show the enter button not jump to it when it's done.
   const showEnterButton =
     !isExperienceLoading &&
     loadedChunks >= totalChunks &&
