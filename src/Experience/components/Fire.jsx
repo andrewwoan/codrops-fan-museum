@@ -259,21 +259,21 @@ export default function Fire({ time, ...props }) {
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[9.1, 10.32, -18.4]}
-        withAudio={true}
+        withAudio={false}
       />
       <FireElement
         time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[3.28, 10.32, -18.4]}
-        withAudio={true}
+        withAudio={false}
       />
       <FireElement
         time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[5.69, 17.25, -15.49]}
-        withAudio={true}
+        withAudio={false}
       />
 
       {/* Inside Torches with Positional Audio */}
@@ -281,19 +281,19 @@ export default function Fire({ time, ...props }) {
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[11.27, 8.62, -27.25]}
-        withAudio={true}
+        withAudio={false}
       />
       <FireElement
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[1.4, 8.62, -27.15]}
-        withAudio={true}
+        withAudio={false}
       />
       <FireElement
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[11.27, 8.62, -45.25]}
-        withAudio={true}
+        withAudio={false}
       />
       <FireElement
         time={time}
