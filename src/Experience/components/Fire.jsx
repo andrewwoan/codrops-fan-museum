@@ -208,7 +208,7 @@ function FireElement({ color, time, withAudio = false, ...props }) {
       {withAudio && (
         <PositionalAudio
           ref={audioRef}
-          url="/audio/sfx/torch.ogg"
+          url="/audio/sfx/torch.mp3"
           distance={1}
           maxDistance={1}
           loop
@@ -306,7 +306,7 @@ export default function Fire({ time, ...props }) {
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[1.4, 8.62, -45.15]}
-        withAudio={audioEnabled}
+        withAudio={true}
       />
     </group>
   );
