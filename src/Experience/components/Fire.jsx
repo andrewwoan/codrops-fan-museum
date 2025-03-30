@@ -167,6 +167,17 @@ function FireElement({ color, time, withAudio = false, ...props }) {
   const texture = useLoader(THREE.TextureLoader, "/images/fire.png");
   const { isExperienceReady } = useExperienceStore();
 
+  const isApplePlatform =
+    typeof navigator !== "undefined" &&
+    (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1) ||
+      (/Mac/.test(navigator.userAgent) &&
+        !/iPad|iPhone|iPod/.test(navigator.userAgent)));
+
+  const audioFile = isApplePlatform
+    ? "/audio/sfx/torch.mp3"
+    : "/audio/sfx/torch.ogg";
+
   useLayoutEffect(() => {
     if (!materialRef.current) return;
 
@@ -208,7 +219,7 @@ function FireElement({ color, time, withAudio = false, ...props }) {
       {withAudio && (
         <PositionalAudio
           ref={audioRef}
-          url="/audio/sfx/torch.mp3"
+          url={audioFile}
           distance={1}
           maxDistance={1}
           loop
@@ -219,13 +230,6 @@ function FireElement({ color, time, withAudio = false, ...props }) {
 }
 
 export default function Fire({ time, ...props }) {
-  const isIOS =
-    typeof navigator !== "undefined" &&
-    /iPad|iPhone|iPod/.test(navigator.userAgent) &&
-    !window.MSStream;
-
-  const audioEnabled = !isIOS;
-
   return (
     <group {...props}>
       {/* Braizer Fires */}
@@ -233,31 +237,31 @@ export default function Fire({ time, ...props }) {
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[-13.1, 9.52, -14.4]}
-        withAudio={audioEnabled}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[-9.29, 9.52, -14.4]}
-        withAudio={audioEnabled}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[21.279, 9.52, -14.4]}
-        withAudio={audioEnabled}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[25, 9.52, -14.4]}
-        withAudio={audioEnabled}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[1.4, 4, 1.4]}
         position={[28.789, 9.52, -14.4]}
-        withAudio={audioEnabled}
+        withAudio={true}
       />
 
       {/* Outside Torches */}
@@ -266,21 +270,21 @@ export default function Fire({ time, ...props }) {
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[9.1, 10.32, -18.4]}
-        withAudio={audioEnabled}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[3.28, 10.32, -18.4]}
-        withAudio={audioEnabled}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[0.38, 1.4, 0.38]}
         rotation={[0.3, 0, 0]}
         position={[5.69, 17.25, -15.49]}
-        withAudio={audioEnabled}
+        withAudio={true}
       />
 
       {/* Inside Torches with Positional Audio */}
@@ -288,19 +292,19 @@ export default function Fire({ time, ...props }) {
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[11.27, 8.62, -27.25]}
-        withAudio={audioEnabled}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[1.4, 8.62, -27.15]}
-        withAudio={audioEnabled}
+        withAudio={true}
       />
       <FireElement
         time={time}
         scale={[0.38, 2, 0.38]}
         position={[11.27, 8.62, -45.25]}
-        withAudio={audioEnabled}
+        withAudio={true}
       />
       <FireElement
         time={time}
