@@ -1,14 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./LoadingScreen.scss";
-import { useProgress } from "@react-three/drei";
 import { playBackgroundMusic, playSound } from "../../utils/audioSystem.js";
 import { useExperienceStore } from "../../stores/experienceStore.js";
 
 const LoadingScreen = () => {
-  const { progress } = useProgress();
   const [isRevealed, setIsRevealed] = useState(false);
   const [isAnimationFinished, setIsAnimationFinished] = useState(false);
-  const { setIsExperienceReady, isExperienceLoading } = useExperienceStore();
+  const [displayedProgress, setDisplayedProgress] = useState(0);
+  const [hasCompletedAnimation, setHasCompletedAnimation] = useState(false); // New state
+  const animationRef = useRef(null);
+
+  const {
+    setIsExperienceReady,
+    isExperienceLoading,
+    loadedChunks,
+    totalChunks,
+  } = useExperienceStore();
+
+  const loadingProgress = Math.round((loadedChunks / totalChunks) * 100);
+
+  // Smoothly animate the displayed progress number
+  useEffect(() => {
+    if (loadingProgress > displayedProgress || !hasCompletedAnimation) {
+      const animate = () => {
+        setDisplayedProgress((prev) => {
+          const step = Math.ceil((loadingProgress - prev) * 0.1);
+          const newValue = prev + step;
+
+          // Check if we've reached/exceeded the target
+          if (newValue >= loadingProgress) {
+            const finalValue = Math.min(loadingProgress, 100);
+            if (finalValue === 100) {
+              setHasCompletedAnimation(true); // Mark animation as complete
+            }
+            return finalValue;
+          }
+          animationRef.current = requestAnimationFrame(animate);
+          return newValue;
+        });
+      };
+
+      animationRef.current = requestAnimationFrame(animate);
+    }
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [loadingProgress, hasCompletedAnimation]);
 
   const handleReveal = () => {
     setIsRevealed(true);
@@ -26,8 +66,14 @@ const LoadingScreen = () => {
     return null;
   }
 
+  // Only show button if BOTH conditions are met:
+  // 1. Loading is technically complete (loadedChunks >= totalChunks)
+  // 2. The animation has visually reached 100%
   const showEnterButton =
-    !isExperienceLoading && progress >= 100 && !isRevealed;
+    !isExperienceLoading &&
+    loadedChunks >= totalChunks &&
+    hasCompletedAnimation &&
+    !isRevealed;
 
   return (
     <>
@@ -50,10 +96,10 @@ const LoadingScreen = () => {
             <div className="loading-bar-container">
               <div
                 className="loading-bar"
-                style={{ width: `${Math.min(progress, 100)}%` }}
+                style={{ width: `${Math.min(displayedProgress, 100)}%` }}
               ></div>
               <div className="percentage">
-                {Math.round(Math.min(progress, 100))}%
+                {Math.min(displayedProgress, 100)}%
               </div>
             </div>
           )}

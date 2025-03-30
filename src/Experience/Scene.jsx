@@ -41,19 +41,18 @@ const useChunkedLoading = () => {
   const [loadingStage, setLoadingStage] = useState(0);
   const { active } = useProgress();
   const prevActiveRef = useRef(true);
-  const totalChunks = 4;
+  const { incrementLoadedChunks } = useExperienceStore();
 
   useEffect(() => {
     if (prevActiveRef.current && !active) {
-      setLoadingStage((prev) => Math.min(prev + 1, totalChunks));
+      setLoadingStage((prev) => prev + 1);
+      incrementLoadedChunks();
     }
 
     prevActiveRef.current = active;
-  }, [active, loadingStage]);
+  }, [active, incrementLoadedChunks]);
 
   return {
-    currentStage: loadingStage,
-    isLoadingComplete: loadingStage >= totalChunks,
     shouldRenderChunk: (chunkIndex) => loadingStage >= chunkIndex,
   };
 };
@@ -239,7 +238,7 @@ const Scene = ({
           <Tenth />
           <Eleventh />
           <Bird time={timeRef.current} position={[-20, 40, -45]} scale={0.02} />
-          {/* <Fire time={timeRef.current} /> */}
+          <Fire time={timeRef.current} />
           <WaterFall time={timeRef.current} />
         </Suspense>
       )}

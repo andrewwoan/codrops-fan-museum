@@ -4,10 +4,12 @@ import { create } from "zustand";
 export const useExperienceStore = create((set) => ({
   isExperienceReady: false,
   isExperienceLoading: true,
-  isAllContentLoaded: false,
+  loadedChunks: 0,
+  totalChunks: 4,
 
   setIsExperienceReady: () => set({ isExperienceReady: true }),
   setIsExperienceLoading: (isLoading) =>
     set({ isExperienceLoading: isLoading }),
-  setAllContentLoaded: () => set({ isAllContentLoaded: true }),
+  incrementLoadedChunks: () =>
+    set((state) => ({ loadedChunks: state.loadedChunks + 1 })),
 }));

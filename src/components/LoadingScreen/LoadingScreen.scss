@@ -15,7 +15,6 @@
   width: 100%;
   background-color: rgb(11, 11, 11);
   transition: transform 1s ease-in-out 0.5s;
-  transition-delay: 0.85s;
 }
 
 .background-top-half {
@@ -97,6 +96,7 @@
   height: 100%;
   background-color: #ffffff;
   border: 1px solid black;
+  will-change: width;
 }
 
 .percentage {
