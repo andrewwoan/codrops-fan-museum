@@ -25,11 +25,6 @@ export const cameraCurve = new THREE.CatmullRomCurve3(
     ),
     new THREE.Vector3(7.75929286794663, 18.796052392871356, 0.810478836223162),
     new THREE.Vector3(-0.25929286794663, 16.796052392871356, 6.810478836223162),
-    new THREE.Vector3(
-      6.577763360438033,
-      window.innerWidth < 764 ? 12 : 8.856284964410769,
-      window.innerWidth < 764 ? 31.640379680866076 : 20.640379680866076
-    ),
   ],
   true
 );
