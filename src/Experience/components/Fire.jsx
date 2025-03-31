@@ -141,20 +141,65 @@ class FireMaterial extends THREE.ShaderMaterial {
           }
   
           void main() {
-            vec3 rayPos = vWorldPos;
-            vec3 rayDir = normalize(rayPos - cameraPosition);
-            float rayLen = 0.0388 * length(scale.xyz);
-            vec4 col = vec4(0.0);
-            for(int i = 0; i < ITERATIONS; i++) {
-              rayPos += rayDir * rayLen;
-              vec3 lp = localize(rayPos);
-              lp.y += 0.5;
-              lp.xz *= 2.0;
-              col += samplerFire(lp, noiseScale);
-            }
-            col.a = col.r;
-            gl_FragColor = col;
-          }`,
+    vec3 rayPos = vWorldPos;
+    vec3 rayDir = normalize(rayPos - cameraPosition);
+    float rayLen = 0.0388 * length(scale.xyz);
+    vec4 col = vec4(0.0);
+    
+    // Add a smoky/ember base
+    vec4 baseCol = vec4(0.05, 0.02, 0.0, 0.4);
+    
+    // Sample fire with volumetric ray marching
+    for(int i = 0; i < ITERATIONS; i++) {
+      rayPos += rayDir * rayLen;
+      vec3 lp = localize(rayPos);
+      lp.y += 0.5;
+      lp.xz *= 2.0;
+      
+      // Add turbulence variation for more realistic flame
+      float turb = turbulence(lp * 0.8 + vec3(0.0, time * 0.1, 0.0)) * 0.5;
+      vec4 fireCol = samplerFire(lp, noiseScale);
+      
+      // Add color variation based on height
+      fireCol.rgb *= mix(vec3(1.0, 0.5, 0.2), vec3(1.0, 0.9, 0.5), lp.y * 0.2 + turb);
+      
+      // Add embers
+      if (turb > 0.6 && fireCol.r < 0.05) {
+        fireCol += vec4(0.8, 0.3, 0.0, 0.0) * (turb - 0.6) * 2.0;
+      }
+      
+      col += fireCol;
+    }
+    
+    // Non-linear color adjustment for more realistic fire
+    col.rgb = pow(col.rgb, vec3(0.85));
+    
+    // Enhance contrast
+    col.rgb = mix(vec3(0.0), col.rgb, 1.2);
+    
+    // Create a smooth transition between the fire and background
+    float intensity = (col.r + col.g + col.b) / 3.0;
+    
+    // Add smoky base for low-intensity areas
+    if (intensity < 0.1) {
+      float smokeAmount = (0.1 - intensity) * 5.0;
+      col = mix(col, baseCol, smokeAmount);
+    }
+    
+    // Make sure the alpha is non-zero but still related to brightness
+    col.a = clamp(col.r * 1.5 + col.g * 0.5 + 0.1, 0.0, 1.0);
+
+      if (intensity < 0.01) {
+      discard; // This eliminates the black rectangle
+    }
+    
+    // For very bright parts, make sure they're opaque
+    if (intensity > 0.5) {
+      col.a = 1.0;
+    }
+    
+    gl_FragColor = col;
+  }`,
     });
   }
 }
