@@ -5,6 +5,9 @@ import { PositionalAudio } from "@react-three/drei";
 import { useExperienceStore } from "../../stores/experienceStore";
 import { getAudioFileExtension } from "../../utils/platformDetector";
 
+// Fire shader credits to drcmda
+// See here: https://codesandbox.io/p/sandbox/3878x
+
 class FireMaterial extends THREE.ShaderMaterial {
   constructor() {
     super({
