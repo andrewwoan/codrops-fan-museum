@@ -22,7 +22,7 @@ class FireMaterial extends THREE.ShaderMaterial {
         noiseScale: { type: "v4", value: new THREE.Vector4(1, 2, 1, 0.3) },
         magnitude: { type: "f", value: 2.5 },
         lacunarity: { type: "f", value: 3.0 },
-        gain: { type: "f", value: 0.3 },
+        gain: { type: "f", value: 0.25 },
       },
       vertexShader: `
           varying vec3 vWorldPos;
@@ -155,8 +155,17 @@ class FireMaterial extends THREE.ShaderMaterial {
               lp.xz *= 2.0;
               col += samplerFire(lp, noiseScale);
             }
-            col.a = col.r;
-            gl_FragColor = col;
+           // Adjust alpha to avoid dark fade
+  float alpha = col.r; // Start with red channel as base
+  alpha = smoothstep(0.1, 0.5, alpha); // Remap alpha to reduce low-opacity dark areas
+  col.a = alpha;
+
+  col.rgb *= 1.05; // Boost brightness of the fire
+
+  // Ensure dark areas are fully transparent
+  if (col.a < 0.1) discard; // Discard low-alpha fragments to prevent blending
+
+  gl_FragColor = col;
           }`,
     });
   }
