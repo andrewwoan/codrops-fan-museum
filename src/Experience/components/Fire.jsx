@@ -155,15 +155,14 @@ class FireMaterial extends THREE.ShaderMaterial {
               lp.xz *= 2.0;
               col += samplerFire(lp, noiseScale);
             }
-           // Adjust alpha to avoid dark fade
-  float alpha = col.r; // Start with red channel as base
-  alpha = smoothstep(0.1, 0.5, alpha); // Remap alpha to reduce low-opacity dark areas
+  float alpha = col.r; 
+  // alpha = smoothstep(0.4, 0.5, alpha);
   col.a = alpha;
 
-  col.rgb *= 1.05; // Boost brightness of the fire
+  col.rgb *= 1.05; 
 
-  // Ensure dark areas are fully transparent
-  if (col.a < 0.1) discard; // Discard low-alpha fragments to prevent blending
+  
+  if (col.a < 0.1) discard; 
 
   gl_FragColor = col;
           }`,
