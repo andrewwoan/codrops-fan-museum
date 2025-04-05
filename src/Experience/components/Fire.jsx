@@ -155,16 +155,16 @@ class FireMaterial extends THREE.ShaderMaterial {
               lp.xz *= 2.0;
               col += samplerFire(lp, noiseScale);
             }
-  float alpha = col.r; 
-  // alpha = smoothstep(0.4, 0.5, alpha);
-  col.a = alpha;
+            float alpha = col.r; 
+            // alpha = smoothstep(0.4, 0.5, alpha);
+            col.a = alpha;
 
-  col.rgb *= 1.05; 
+            col.rgb *= 1.05; 
 
-  
-  if (col.a < 0.1) discard; 
+            
+            if (col.a < 0.1) discard; 
 
-  gl_FragColor = col;
+            gl_FragColor = col;
           }`,
     });
   }
