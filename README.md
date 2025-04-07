@@ -1,6 +1,7 @@
 # 🏰 Codrops Fan Museum 🖼️
 
-**[Live site](https://tympanus.net/Tutorials/CodropsFanMuseum/)** | **[Blender File](https://drive.google.com/file/d/1_DhUPpQ_vdWxHgDrgfKdy5_zkZ9bZ2v7/view?usp=sharing)**
+**[Demo on Codrops](https://tympanus.net/Tutorials/CodropsFanMuseum/)** | **[Blender file](https://drive.google.com/file/d/1_DhUPpQ_vdWxHgDrgfKdy5_zkZ9bZ2v7/view?usp=sharing)** | **[YouTube video breaking down modeling techniques](https://youtu.be/R6yppleutsQ)**
+| **[Live Site](https://codrops-fan-museum.com/)**
 
 This repo contains code of a fan museum for Codrops!
 
