@@ -9,4 +9,4 @@ This repo contains code of a fan museum for Codrops!
 
 # 🥰🥰 Inspo & Credits!!! 🥰🥰
 
-See Codrops article!!! There's like over 30 I think hahaha
+coming wait haha, need to eat breakfast first, but check Codrops article for full list!!!
