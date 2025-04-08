@@ -9,7 +9,7 @@ This repo contains code of a fan museum for Codrops!
 
 # 🥰🥰 Inspo & Credits!!! 🥰🥰
 
-Of course huge shoutout to the whole community for making things possible!! Three.js and Blender are so so amazing. Here are a list of the original creators for some of the things I used in this project.
+Of course huge shoutout to the whole community for making things possible!! Three.js and Blender are so so amazing!!! Here are a list of the original creators for some of the things I used in this project:
 
 - [The Adam | Blender techniques](https://www.youtube.com/watch?v=gw885XAKYiI)
 - [sketching in blender | Blender techniques](https://youtu.be/JSuWu4EXVZw)
