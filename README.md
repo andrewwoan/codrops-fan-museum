@@ -7,6 +7,6 @@ This repo contains code of a fan museum for Codrops!
 
 ![Page screenshot](public/media/og-image.webp?raw=true "Page screenshot")
 
-# Inspo & Credits!!!
+# 🥰🥰 Inspo & Credits!!! 🥰🥰
 
 See Codrops article!!! There's like over 30 I think hahaha
