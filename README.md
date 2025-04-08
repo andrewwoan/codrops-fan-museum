@@ -21,7 +21,6 @@ Of course huge shoutout to the whole community for making things possible!! Thre
 - [Thump SFX](https://pixabay.com/sound-effects/massive-thump-116359/)
 - [Torch SFX](https://pixabay.com/users/freesoundsxx-47251115/)
 - [Font](https://fonts.google.com/specimen/Eagle+Lake?query=eag)
-- [Font](https://fonts.google.com/specimen/Eagle+Lake?query=eag)
 - [DivyeSh's torch model](https://sketchfab.com/3d-models/torch-d47f1a85c4c846a392cc1d1afca15295)
 - [distant_voices' lectern model](https://sketchfab.com/3d-models/lectern-17562d27f70b4b4a834cd778cd5e6c06)
 - [Sky_Hunter's medieval brazier model](https://sketchfab.com/3d-models/medieval-brazier-cff29e533e3a4298a5d112cf7bb2558c)
