@@ -18,6 +18,8 @@ npm run dev
 
 If you see something wrong in the article please let me know!! I'll post a list of corrections for the code and article here~ Thank you in advance!
 
+- You'll see a lot of websites also use other file formats like .jpg and there are pros and cons to that. For one .jpg is more widely supported and WebP has additional time to decode so it really kind of depends on your use case. I'm using solid baked textures so I'm aiming for max compression with WebP and KTX rather than .jpg which might be ideal for more granular details or normal textures etc.
+
 # 🥰🥰 Inspo & Credits!!! 🥰🥰
 
 Of course huge shoutout to the whole community for making things possible!! Three.js and Blender are so so amazing!!! Here are a list of the original creators for some of the things I used in this project:
