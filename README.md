@@ -28,4 +28,4 @@ Of course huge shoutout to the whole community for making things possible!! Thre
 
 # More tools~
 
-See all tools on the [codrops article](https://tympanus.net/codrops/2025/04/08/3d-world-in-the-browser-with-blender-and-three-js/)!
+See all tools on the [Codrops article](https://tympanus.net/codrops/2025/04/08/3d-world-in-the-browser-with-blender-and-three-js/)!
