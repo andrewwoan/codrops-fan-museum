@@ -7,6 +7,13 @@ This repo contains code of a fan museum for Codrops!
 
 ![Page screenshot](public/media/og-image.webp?raw=true "Page screenshot")
 
+## Instructions
+
+```
+npm install
+npm run dev
+```
+
 # Updates & Corrections
 
 If you see something wrong in the article please let me know!! I'll post a list of corrections for the code and article here~ Thank you in advance!
