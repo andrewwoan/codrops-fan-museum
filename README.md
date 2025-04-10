@@ -7,6 +7,10 @@ This repo contains code of a fan museum for Codrops!
 
 ![Page screenshot](public/media/og-image.webp?raw=true "Page screenshot")
 
+# Updates & Corrections
+
+If you see something wrong in the article please let me know!! I'll post a list of corrections for the code and article here~ Thank you in advance!
+
 # 🥰🥰 Inspo & Credits!!! 🥰🥰
 
 Of course huge shoutout to the whole community for making things possible!! Three.js and Blender are so so amazing!!! Here are a list of the original creators for some of the things I used in this project:
