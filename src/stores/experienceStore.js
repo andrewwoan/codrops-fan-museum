@@ -1,4 +1,5 @@
-// experienceStore.js
+// Global store allowing entire experience to update accodingly.
+
 import { create } from "zustand";
 
 export const useExperienceStore = create((set) => ({

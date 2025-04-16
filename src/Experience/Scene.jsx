@@ -107,6 +107,7 @@ const Scene = ({
 
   useFrame((state) => {
     if (camera) {
+      // Pulsating Time
       timeRef.current = state.clock.getElapsedTime();
       const newPulseIntensity = (Math.sin(state.clock.elapsedTime * 3) + 1) / 2;
       setPulseIntensity(newPulseIntensity);
@@ -118,6 +119,7 @@ const Scene = ({
         lerpFactor
       );
 
+      // So the camera can loop
       if (newProgress > 1) {
         newProgress = 0;
         targetScrollProgress.current = 0;
