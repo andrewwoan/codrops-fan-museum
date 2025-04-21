@@ -20,6 +20,7 @@ If you see something wrong in the article please let me know!! I'll post a list 
 
 - When it comes to "bad" topology, sometimes it's actually good for optimization as in, it may have less verticies and geometry data which saves on file size. You may also use bad toplogy in certain scenarios as a "trick" to have a certain effect. Of course bad topology can do the opposite as well, as in, if it's really bad it will cause issues (lighting/shading, performance, etc).
 - You'll see a lot of websites also use other file formats like .jpg and there are pros and cons to that. For one .jpg is more widely supported and WebP has additional time to decode so it really kind of depends on your use case. I'm using solid baked textures so I'm aiming for max compression with WebP and KTX rather than .jpg which might be ideal for more granular details or normal textures etc.
+- Because GLTF/GLB is basically a glorified JSON object storing things like vertex positions, you might see a lot of websites use .bin files or .JSON files or some other custom vertex data format rather than a GLB file. However, GLBs are still very common to use.
 
 # 🥰🥰 Inspo & Credits!!! 🥰🥰
 
