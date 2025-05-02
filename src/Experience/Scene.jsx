@@ -163,7 +163,7 @@ const Scene = ({
       const targetRotation = getLerpedRotation(newProgress);
 
       // Use slerp to smoothly interpolate between our target rotations
-      rotationBufferQuat.slerp(targetRotation, 0.1);
+      rotationBufferQuat.slerp(targetRotation, 0.05);
 
       cameraGroup.current.quaternion.copy(rotationBufferQuat);
 
