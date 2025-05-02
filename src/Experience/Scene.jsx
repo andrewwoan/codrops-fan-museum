@@ -68,8 +68,8 @@ const Scene = ({
   mouseRotationOffset,
 }) => {
   const [pulseIntensity, setPulseIntensity] = useState(0);
-  const [rotationBuffer, setRotationBuffer] = useState(
-    new THREE.Euler().copy(rotationTargets[0].rotation)
+  const [rotationBufferQuat] = useState(
+    new THREE.Quaternion().setFromEuler(rotationTargets[0].rotation)
   );
   const timeRef = useRef(0);
 
@@ -95,14 +95,13 @@ const Scene = ({
           lerpFactor
         );
 
-        const lerpedRotation = new THREE.Euler().setFromQuaternion(
-          lerpingQuaternion
-        );
-        return lerpedRotation;
+        return lerpingQuaternion;
       }
     }
 
-    return rotationTargets[rotationTargets.length - 1].rotation;
+    return new THREE.Quaternion().setFromEuler(
+      rotationTargets[rotationTargets.length - 1].rotation
+    );
   };
 
   useFrame((state) => {
@@ -163,20 +162,12 @@ const Scene = ({
 
       const targetRotation = getLerpedRotation(newProgress);
 
-      // Apply smoothing to base rotation
-      const smoothedRotation = new THREE.Euler(
-        THREE.MathUtils.lerp(rotationBuffer.x, targetRotation.x, 0.05),
-        THREE.MathUtils.lerp(rotationBuffer.y, targetRotation.y, 0.05),
-        THREE.MathUtils.lerp(rotationBuffer.z, targetRotation.z, 0.05)
-      );
+      // Use slerp to smoothly interpolate between our target rotations
+      rotationBufferQuat.slerp(targetRotation, 0.1);
 
-      // Update the rotation buffer
-      setRotationBuffer(smoothedRotation);
+      cameraGroup.current.quaternion.copy(rotationBufferQuat);
 
-      // Apply the base rotation to the camera group
-      cameraGroup.current.rotation.copy(smoothedRotation);
-
-      // Add mouse-based rotation to the camera itself (local rotation)
+      // Direct camera rotation, NOT the group
       camera.current.rotation.x = THREE.MathUtils.lerp(
         camera.current.rotation.x,
         -mouseRotationOffset.current.x,
