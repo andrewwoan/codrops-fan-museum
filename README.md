@@ -22,6 +22,7 @@ If you see something wrong in the article please let me know!! I'll post a list 
 - You'll see a lot of websites also use other file formats like .jpg and there are pros and cons to that. For one .jpg is more widely supported and WebP has additional time to decode so it really kind of depends on your use case. I'm using solid baked textures so I'm aiming for max compression with WebP and KTX rather than .jpg which might be ideal for more granular details or normal textures etc.
 - Because GLTF/GLB is basically a glorified JSON object storing things like vertex positions, you might see a lot of websites use .bin files or .JSON files or some other custom vertex data format rather than a GLB file. However, GLBs are still very common to use.
 - Ignore the curve rotation section with the create functional spline, I did not end up using that method. Simplified it way more.
+- You shouldn't use useState. I did because I wanted to save time. For something like scrollProgress we could use useRef() for better performance.
 
 # 🥰🥰 Inspo & Credits!!! 🥰🥰
 
