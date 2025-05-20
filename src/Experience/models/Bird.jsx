@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useRef } from "react";
+import { useMemo, useEffect, useRef } from "react";
 import { useGraph, useFrame } from "@react-three/fiber";
 import { SkeletonUtils } from "three-stdlib";
 import { useGLTFWithKTX2 } from "../utils/useGLTFWithKTX2";

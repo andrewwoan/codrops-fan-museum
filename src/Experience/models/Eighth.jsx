@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useMemo, forwardRef } from "react";
+import { useRef, useEffect, useMemo, forwardRef } from "react";
 import { Instance, Instances } from "@react-three/drei";
 import { useGLTFWithKTX2 } from "../utils/useGLTFWithKTX2";
 import { convertMaterialsToBasic } from "../utils/convertToBasic";
