@@ -1,4 +1,4 @@
-# 🏰 Codrops Fan Museum 🖼️
+# 🏰 Award-Winning Codrops Fan Museum 🖼️
 
 **[Demo on Codrops](https://tympanus.net/Tutorials/CodropsFanMuseum/)** | **[Blender file](https://drive.google.com/file/d/1_DhUPpQ_vdWxHgDrgfKdy5_zkZ9bZ2v7/view?usp=sharing)** | **[YouTube video](https://youtu.be/R6yppleutsQ)** | **[Codrops article](https://tympanus.net/codrops/2025/04/08/3d-world-in-the-browser-with-blender-and-three-js/)**
 | **[Live site](https://codrops-fan-museum.com/)**
@@ -46,3 +46,7 @@ Of course huge shoutout to the whole community for making things possible!! Thre
 # More tools~
 
 See all tools on the [Codrops article](https://tympanus.net/codrops/2025/04/08/3d-world-in-the-browser-with-blender-and-three-js/)!
+
+# Won FWA of the day!
+
+[FWA of the Day](https://thefwa.com/cases/codrops-fane-museum)!
