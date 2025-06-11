@@ -47,6 +47,6 @@ Of course huge shoutout to the whole community for making things possible!! Thre
 
 See all tools on the [Codrops article](https://tympanus.net/codrops/2025/04/08/3d-world-in-the-browser-with-blender-and-three-js/)!
 
-# Won FWA of the day 🎉🎉!
+# 🎉 Won FWA of the day 🎉!
 
 [FWA of the Day](https://thefwa.com/cases/codrops-fane-museum)!
